@@ -9,10 +9,13 @@
 /* Begin PBXBuildFile section */
 		B3301A809B13E238E024CE45 /* Pods_Cattogram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */; };
 		C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C773274D1FDBA6BE00215DC9 /* AppDelegate.swift */; };
-		C77327501FDBA6BE00215DC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C773274F1FDBA6BE00215DC9 /* ViewController.swift */; };
 		C77327531FDBA6BE00215DC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77327511FDBA6BE00215DC9 /* Main.storyboard */; };
 		C77327551FDBA6BE00215DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C77327541FDBA6BE00215DC9 /* Assets.xcassets */; };
 		C77327581FDBA6BE00215DC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77327561FDBA6BE00215DC9 /* LaunchScreen.storyboard */; };
+		C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77327611FDBAD3F00215DC9 /* LoginViewController.swift */; };
+		C77327641FDBAE3000215DC9 /* CattogramClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77327631FDBAE3000215DC9 /* CattogramClient.swift */; };
+		C78960711FDBBA930012B71C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960701FDBBA930012B71C /* RegisterViewController.swift */; };
+		C78960731FDBBEF10012B71C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C78960721FDBBEF10012B71C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,11 +24,14 @@
 		8540606215F994AE6146BDE6 /* Pods-Cattogram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cattogram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram.debug.xcconfig"; sourceTree = "<group>"; };
 		C773274A1FDBA6BE00215DC9 /* Cattogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cattogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C773274D1FDBA6BE00215DC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C773274F1FDBA6BE00215DC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C77327521FDBA6BE00215DC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C77327541FDBA6BE00215DC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C77327571FDBA6BE00215DC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C77327591FDBA6BE00215DC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C77327611FDBAD3F00215DC9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C77327631FDBAE3000215DC9 /* CattogramClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattogramClient.swift; sourceTree = "<group>"; };
+		C78960701FDBBA930012B71C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C78960721FDBBEF10012B71C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,11 +85,14 @@
 			isa = PBXGroup;
 			children = (
 				C773274D1FDBA6BE00215DC9 /* AppDelegate.swift */,
-				C773274F1FDBA6BE00215DC9 /* ViewController.swift */,
 				C77327511FDBA6BE00215DC9 /* Main.storyboard */,
 				C77327541FDBA6BE00215DC9 /* Assets.xcassets */,
 				C77327561FDBA6BE00215DC9 /* LaunchScreen.storyboard */,
+				C78960721FDBBEF10012B71C /* GoogleService-Info.plist */,
 				C77327591FDBA6BE00215DC9 /* Info.plist */,
+				C77327611FDBAD3F00215DC9 /* LoginViewController.swift */,
+				C77327631FDBAE3000215DC9 /* CattogramClient.swift */,
+				C78960701FDBBA930012B71C /* RegisterViewController.swift */,
 			);
 			path = Cattogram;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C77327581FDBA6BE00215DC9 /* LaunchScreen.storyboard in Resources */,
+				C78960731FDBBEF10012B71C /* GoogleService-Info.plist in Resources */,
 				C77327551FDBA6BE00215DC9 /* Assets.xcassets in Resources */,
 				C77327531FDBA6BE00215DC9 /* Main.storyboard in Resources */,
 			);
@@ -235,8 +245,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C77327501FDBA6BE00215DC9 /* ViewController.swift in Sources */,
+				C77327641FDBAE3000215DC9 /* CattogramClient.swift in Sources */,
+				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
 				C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */,
+				C78960711FDBBA930012B71C /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
