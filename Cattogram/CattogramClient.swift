@@ -16,6 +16,11 @@ class CattogramClient {
     let userCollection = Firestore.firestore().collection("user")
     let userImagesCollection = Firestore.firestore().collection("userImages")
     
+    let postCollection = Firestore.firestore().collection("post")
+    let postImagesCollection = Firestore.firestore().collection("postImages")
+    let postLikes = Firestore.firestore().collection("postLikes")
+    let postComments = Firestore.firestore().collection("postComments")
+    
     func loginUser(email: String?, password: String?, success: @escaping () -> (), failure: @escaping (LoginError) -> ()) {
         guard let email = email else {
             failure(LoginError.badInput)
@@ -52,26 +57,33 @@ class CattogramClient {
             return
         }
         
-        var userData = ["name": name, "email": email]
+        var userData = ["name": name, "email": email, "postCount": 0] as [String : Any]
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 failure(RegisterError.authentication)
             } else if let user = user {
                 userData["uid"] = user.uid
+                
                 let userDocument = self.userCollection.document(user.uid)
-                let userImageDocument = self.userCollection.document(user.uid)
+                let userImageDocument = self.userImagesCollection.document(user.uid)
+                
                 self.db.runTransaction({ (transaction, errorPointer) -> Any? in
                     transaction.setData(userData, forDocument: userDocument)
                     
                     if let image = image {
                         let imageString = base64EncodeImage(image)
-                        userImageDocument.setData(["image": imageString])
+                        transaction.setData(["image": imageString], forDocument: userImageDocument)
+                    } else {
+                        transaction.setData([:], forDocument: userImageDocument)
                     }
                     
-                    return nil
-                }, completion: { (_, error) in
+                    return user
+                }, completion: { (user, error) in
                     if error != nil {
+                        if let user = user as? User {
+                            user.delete(completion: nil)
+                        }
                         failure(RegisterError.data)
                     } else {
                         success()
@@ -79,6 +91,44 @@ class CattogramClient {
                 })
             }
         }
+    }
+    
+    func createPost(user: String, text: String?, image: UIImage?, success: @escaping () -> (), failure: @escaping (PostError) -> ()) {
+        guard let text = text else {
+            failure(PostError.badInput)
+            return
+        }
+        
+        guard let image = image else {
+            failure(PostError.badInput)
+            return
+        }
+        
+        var postData = ["caption": text, "owner": user, "favoriteCount": 0] as [String : Any]
+        
+        let postDocument = self.postCollection.document()
+        let postImageDocument = self.postImagesCollection.document(postDocument.documentID)
+        let postLikesDocument = self.postLikes.document(postDocument.documentID)
+        let postCommentsDocument = self.postComments.document(postDocument.documentID)
+        
+        postData["uid"] = postDocument.documentID
+        
+        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.setData(postData, forDocument: postDocument)
+            transaction.setData([:], forDocument: postLikesDocument)
+            transaction.setData([:], forDocument: postCommentsDocument)
+            
+            let imageString = base64EncodeImage(image)
+            transaction.setData(["image": imageString], forDocument: postImageDocument)
+            
+            return nil
+        }, completion: { (_, error) in
+            if error != nil {
+                failure(PostError.data)
+            } else {
+                success()
+            }
+        })
     }
 }
 
@@ -115,4 +165,10 @@ enum RegisterError: Error {
 enum LoginError: Error {
     case badInput
     case authentication
+}
+
+enum PostError: Error {
+    case badInput
+    case missingImage
+    case data
 }

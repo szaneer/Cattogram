@@ -18,6 +18,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let background = UIImage(named: "background")!
+        navigationController?.navigationBar.setBackgroundImage(background, for: .default)
+        
         containerView.layer.borderWidth = 0.5
         containerView.layer.borderColor = UIColor.lightGray.cgColor
     }

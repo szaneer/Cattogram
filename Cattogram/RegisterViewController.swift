@@ -10,6 +10,7 @@ import UIKit
 
 class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -18,8 +19,12 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let background = UIImage(named: "background")!
+        navigationController?.navigationBar.setBackgroundImage(background, for: .default)
+        
+        containerView.layer.borderWidth = 0.5
+        containerView.layer.borderColor = UIColor.lightGray.cgColor
     }
 
     
