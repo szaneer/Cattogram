@@ -151,8 +151,16 @@ class CattogramClient {
         })
     }
     
+    var lastSnapshot: DocumentSnapshot?
+    
     func getPosts(success: @escaping ([Post]) -> (), failure: @escaping (PostError) -> ()) {
-        postCollection.order(by: "timestamp", descending: true).getDocuments(completion: { (snapshot, error) in
+        var postQuery = postCollection.order(by: "timestamp", descending: true).limit(to: 20)
+        
+        if let lastSnapshot = lastSnapshot {
+            postQuery = postQuery.start(afterDocument: lastSnapshot)
+        }
+        
+        postQuery.getDocuments(completion: { (snapshot, error) in
             if error != nil {
                 failure(PostError.retrieval)
                 return
@@ -173,6 +181,8 @@ class CattogramClient {
             for document in snapshot.documents {
                 posts.append(Post(postData: document.data()))
             }
+            
+            self.lastSnapshot = snapshot.documents.last
             
             success(posts)
         })

@@ -11,6 +11,8 @@ import UIKit
 class CattosViewController: UITableViewController {
 
     var posts: [Post] = []
+    var isMoreDataLoading = false
+    var loadingMoreView: InfiniteScrollActivityView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,21 +23,63 @@ class CattosViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(loadPosts), for: .valueChanged)
         
+        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        tableView.addSubview(loadingMoreView!)
+        var insets = tableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
+        
+        
         loadPosts()
     }
 
     @objc func loadPosts() {
+        if isMoreDataLoading {
+            return
+        }
+        
+        isMoreDataLoading = true
+        
+        if refreshControl!.isRefreshing {
+            CattogramClient.sharedInstance.lastSnapshot = nil
+        }
+        
         CattogramClient.sharedInstance.getPosts(success: { (posts) in
-            self.posts = posts
+            if self.refreshControl!.isRefreshing {
+                self.posts = posts
+            } else {
+                self.posts.append(contentsOf: posts)
+            }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
+                self.loadingMoreView?.stopAnimating()
+                self.isMoreDataLoading = false
             }
         }) { (error) in
             print(error.localizedDescription)
             DispatchQueue.main.async {
-                self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
+                self.loadingMoreView?.stopAnimating()
+                self.isMoreDataLoading = false
+            }
+        }
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                print("wew")
+                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                loadPosts()
             }
         }
     }

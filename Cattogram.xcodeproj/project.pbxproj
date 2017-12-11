@@ -26,6 +26,7 @@
 		C78960831FDDCDA60012B71C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960821FDDCDA60012B71C /* Post.swift */; };
 		C78960851FDDF3A10012B71C /* CattoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C78960841FDDF3A10012B71C /* CattoHeaderView.xib */; };
 		C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960861FDDF4D30012B71C /* CattoHeaderView.swift */; };
+		C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		C78960821FDDCDA60012B71C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C78960841FDDF3A10012B71C /* CattoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CattoHeaderView.xib; sourceTree = "<group>"; };
 		C78960861FDDF4D30012B71C /* CattoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoHeaderView.swift; sourceTree = "<group>"; };
+		C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				C77327631FDBAE3000215DC9 /* CattogramClient.swift */,
 				C78960701FDBBA930012B71C /* RegisterViewController.swift */,
 				C78960741FDBC3650012B71C /* CattosViewController.swift */,
+				C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */,
 				C78960761FDBC9110012B71C /* CattoCell.swift */,
 				C78960781FDBCBC80012B71C /* PreCreateViewController.swift */,
 				C789607A1FDBCCED0012B71C /* CreateViewController.swift */,
@@ -284,6 +287,7 @@
 				C789607F1FDCE5FE0012B71C /* PostViewController.swift in Sources */,
 				C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */,
 				C789607D1FDC7CB50012B71C /* CreateCell.swift in Sources */,
+				C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */,
 				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
 				C78960771FDBC9110012B71C /* CattoCell.swift in Sources */,
 				C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */,
