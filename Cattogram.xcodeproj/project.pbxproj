@@ -22,6 +22,10 @@
 		C789607B1FDBCCED0012B71C /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C789607A1FDBCCED0012B71C /* CreateViewController.swift */; };
 		C789607D1FDC7CB50012B71C /* CreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C789607C1FDC7CB50012B71C /* CreateCell.swift */; };
 		C789607F1FDCE5FE0012B71C /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C789607E1FDCE5FE0012B71C /* PostViewController.swift */; };
+		C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960801FDCF19E0012B71C /* PostLocationSearchViewController.swift */; };
+		C78960831FDDCDA60012B71C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960821FDDCDA60012B71C /* Post.swift */; };
+		C78960851FDDF3A10012B71C /* CattoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C78960841FDDF3A10012B71C /* CattoHeaderView.xib */; };
+		C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960861FDDF4D30012B71C /* CattoHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,10 @@
 		C789607A1FDBCCED0012B71C /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		C789607C1FDC7CB50012B71C /* CreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCell.swift; sourceTree = "<group>"; };
 		C789607E1FDCE5FE0012B71C /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		C78960801FDCF19E0012B71C /* PostLocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationSearchViewController.swift; sourceTree = "<group>"; };
+		C78960821FDDCDA60012B71C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		C78960841FDDF3A10012B71C /* CattoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CattoHeaderView.xib; sourceTree = "<group>"; };
+		C78960861FDDF4D30012B71C /* CattoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +118,11 @@
 				C78960781FDBCBC80012B71C /* PreCreateViewController.swift */,
 				C789607A1FDBCCED0012B71C /* CreateViewController.swift */,
 				C789607C1FDC7CB50012B71C /* CreateCell.swift */,
+				C78960801FDCF19E0012B71C /* PostLocationSearchViewController.swift */,
 				C789607E1FDCE5FE0012B71C /* PostViewController.swift */,
+				C78960821FDDCDA60012B71C /* Post.swift */,
+				C78960841FDDF3A10012B71C /* CattoHeaderView.xib */,
+				C78960861FDDF4D30012B71C /* CattoHeaderView.swift */,
 			);
 			path = Cattogram;
 			sourceTree = "<group>";
@@ -179,6 +191,7 @@
 			files = (
 				C77327581FDBA6BE00215DC9 /* LaunchScreen.storyboard in Resources */,
 				C78960731FDBBEF10012B71C /* GoogleService-Info.plist in Resources */,
+				C78960851FDDF3A10012B71C /* CattoHeaderView.xib in Resources */,
 				C77327551FDBA6BE00215DC9 /* Assets.xcassets in Resources */,
 				C77327531FDBA6BE00215DC9 /* Main.storyboard in Resources */,
 			);
@@ -266,11 +279,14 @@
 				C789607B1FDBCCED0012B71C /* CreateViewController.swift in Sources */,
 				C77327641FDBAE3000215DC9 /* CattogramClient.swift in Sources */,
 				C78960791FDBCBC80012B71C /* PreCreateViewController.swift in Sources */,
+				C78960831FDDCDA60012B71C /* Post.swift in Sources */,
 				C78960751FDBC3650012B71C /* CattosViewController.swift in Sources */,
 				C789607F1FDCE5FE0012B71C /* PostViewController.swift in Sources */,
+				C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */,
 				C789607D1FDC7CB50012B71C /* CreateCell.swift in Sources */,
 				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
 				C78960771FDBC9110012B71C /* CattoCell.swift in Sources */,
+				C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */,
 				C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */,
 				C78960711FDBBA930012B71C /* RegisterViewController.swift in Sources */,
 			);

@@ -22,13 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Firestore.initialize()
         
         if let currentUser = Auth.auth().currentUser {
-            currentUser.getIDTokenForcingRefresh(true, completion: { (token, error) in
-                if let token = token {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let main = storyboard.instantiateViewController(withIdentifier: "main")
-                    self.window?.rootViewController = main
-                }
-            })
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let main = storyboard.instantiateViewController(withIdentifier: "main")
+            self.window?.rootViewController = main
         }
         
         return true

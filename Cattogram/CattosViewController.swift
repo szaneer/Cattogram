@@ -10,23 +10,40 @@ import UIKit
 
 class CattosViewController: UITableViewController {
 
+    var posts: [Post] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.estimatedRowHeight = 250
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(loadPosts), for: .valueChanged)
+        
+        loadPosts()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @objc func loadPosts() {
+        CattogramClient.sharedInstance.getPosts(success: { (posts) in
+            self.posts = posts
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
+        }
     }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return posts.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,22 +51,40 @@ class CattosViewController: UITableViewController {
         return 1
     }
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        let post = posts[section]
         
-        let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
-        profileView.clipsToBounds = true
-        profileView.layer.cornerRadius = 15;
-        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
-        profileView.layer.borderWidth = 1;
+        let views = Bundle.main.loadNibNamed("CattoHeaderView", owner: nil, options: nil)
         
-        headerView.addSubview(profileView)
+        var headerView: CattoHeaderView!
+        if let locationName = post.locationName {
+            headerView = views?[0] as! CattoHeaderView
+            headerView.locationButton.setTitle("\(locationName) >", for: .normal)
+        } else {
+            headerView = views?[1] as! CattoHeaderView
+            headerView.nameLabel.frame.offsetBy(dx: 0, dy: 30)
+        }
         
-        let dateLabel = UILabel(frame: CGRect(x: 50, y: 10, width: tableView.frame.width - 50, height: 30))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-        headerView.addSubview(dateLabel)
+        
+       // let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1.0, alpha: 0.9)
+        headerView.profileView.clipsToBounds = true
+        headerView.profileView.layer.cornerRadius = 15;
+        headerView.profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
+        headerView.profileView.layer.borderWidth = 1;
+        CattogramClient.sharedInstance.getUserImage(uid: post.owner, success: { (image) in
+            headerView.profileView.image = image
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        headerView.nameLabel.text = post.name
+        
+        
         
         return headerView
     }
@@ -57,8 +92,13 @@ class CattosViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cattoCell", for: indexPath) as! CattoCell
 
-        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 300)
-        // Configure the cell...
+        let post = posts[indexPath.section]
+        
+        CattogramClient.sharedInstance.getPostImage(uid: post.uid, success: { (image) in
+            cell.cattoView.image = image
+        }) { (error) in
+            print(error.localizedDescription)
+        }
 
         return cell
     }
