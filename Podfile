@@ -6,6 +6,8 @@ target 'Cattogram' do
   use_frameworks!
   pod 'Firebase'
   pod 'Firebase/Firestore'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
   # Pods for Cattogram
 
 end

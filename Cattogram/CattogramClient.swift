@@ -188,6 +188,35 @@ class CattogramClient {
         })
     }
     
+    func getUserPosts(uid: String, success: @escaping ([Post]) -> (), failure: @escaping (PostError) -> ()) {
+        let postQuery = postCollection.whereField("owner", isEqualTo: uid)
+        
+        postQuery.getDocuments(completion: { (snapshot, error) in
+            if error != nil {
+                failure(PostError.retrieval)
+                return
+            }
+            
+            var posts: [Post] = []
+            
+            guard let snapshot = snapshot else {
+                success(posts)
+                return
+            }
+            
+            if snapshot.documents.count <= 0 {
+                success(posts)
+                return
+            }
+            
+            for document in snapshot.documents {
+                posts.append(Post(postData: document.data()))
+            }
+            
+            success(posts)
+        })
+    }
+    
     func getPostImage(uid: String, success: @escaping (UIImage) -> (), failure: @escaping (PostError) -> ()) {
         postImagesCollection.document(uid).getDocument { (snapshot, error) in
             if error != nil {
@@ -205,12 +234,23 @@ class CattogramClient {
             if error != nil {
                 failure(PostError.image)
                 return
-            } else if let snaphot = snapshot {
-                if let imageString = snaphot.data()["image"] as? String {
+            } else if let snapshot = snapshot {
+                if let imageString = snapshot.data()["image"] as? String {
                     success(base64DecodeImage(imageString))
                 } else {
                     success(nil)
                 }
+            }
+        }
+    }
+    
+    func getUserInfo(uid: String, success: @escaping (CattoUser) -> (), failure: @escaping (PostError) -> ()) {
+        userCollection.document(uid).getDocument { (snapshot, error) in
+            if error != nil {
+                failure(PostError.image)
+                return
+            } else if let snapshot = snapshot {
+                success(CattoUser(userData: snapshot.data()))
             }
         }
     }

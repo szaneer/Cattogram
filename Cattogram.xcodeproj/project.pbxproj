@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B3301A809B13E238E024CE45 /* Pods_Cattogram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */; };
+		C7246A401FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */; };
+		C73C018B1FE106FF00D5B989 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C018A1FE106FF00D5B989 /* Login.storyboard */; };
+		C73C018E1FE107F100D5B989 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C018D1FE107F100D5B989 /* Profile.storyboard */; };
+		C73C01911FE1089B00D5B989 /* Posting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C01901FE1089B00D5B989 /* Posting.storyboard */; };
+		C73C01931FE1092400D5B989 /* Cattos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C01921FE1092400D5B989 /* Cattos.storyboard */; };
+		C7435A081FE3A131005ECB6D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7435A071FE3A131005ECB6D /* GradientView.swift */; };
+		C7435A0A1FE3C9F1005ECB6D /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7435A091FE3C9F1005ECB6D /* Billabong.ttf */; };
+		C7435A0C1FE4A1D1005ECB6D /* ModalFromRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */; };
 		C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C773274D1FDBA6BE00215DC9 /* AppDelegate.swift */; };
 		C77327531FDBA6BE00215DC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77327511FDBA6BE00215DC9 /* Main.storyboard */; };
 		C77327551FDBA6BE00215DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C77327541FDBA6BE00215DC9 /* Assets.xcassets */; };
@@ -27,12 +35,37 @@
 		C78960851FDDF3A10012B71C /* CattoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C78960841FDDF3A10012B71C /* CattoHeaderView.xib */; };
 		C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960861FDDF4D30012B71C /* CattoHeaderView.swift */; };
 		C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */; };
+		C7EFA9881FDE3B2500503BC3 /* CattoFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7EFA9871FDE3B2500503BC3 /* CattoFooterView.xib */; };
+		C7EFA98A1FDE3B4200503BC3 /* CattoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA9891FDE3B4200503BC3 /* CattoFooterView.swift */; };
+		C7EFA98C1FDE414200503BC3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA98B1FDE414200503BC3 /* ProfileViewController.swift */; };
+		C7EFA98E1FDE418600503BC3 /* CattoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA98D1FDE418600503BC3 /* CattoUser.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C7B6B73B1FE12A57005EA19B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4C5DD2BE7FA0BC8DCE294C29 /* Pods-Cattogram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cattogram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram.release.xcconfig"; sourceTree = "<group>"; };
 		5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cattogram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8540606215F994AE6146BDE6 /* Pods-Cattogram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cattogram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram.debug.xcconfig"; sourceTree = "<group>"; };
+		C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromRightUnwindSegue.swift; sourceTree = "<group>"; };
+		C73C018A1FE106FF00D5B989 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		C73C018D1FE107F100D5B989 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		C73C01901FE1089B00D5B989 /* Posting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posting.storyboard; sourceTree = "<group>"; };
+		C73C01921FE1092400D5B989 /* Cattos.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cattos.storyboard; sourceTree = "<group>"; };
+		C7435A071FE3A131005ECB6D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		C7435A091FE3C9F1005ECB6D /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
+		C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromRightSegue.swift; sourceTree = "<group>"; };
 		C773274A1FDBA6BE00215DC9 /* Cattogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cattogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C773274D1FDBA6BE00215DC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C77327521FDBA6BE00215DC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -54,6 +87,10 @@
 		C78960841FDDF3A10012B71C /* CattoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CattoHeaderView.xib; sourceTree = "<group>"; };
 		C78960861FDDF4D30012B71C /* CattoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoHeaderView.swift; sourceTree = "<group>"; };
 		C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
+		C7EFA9871FDE3B2500503BC3 /* CattoFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CattoFooterView.xib; sourceTree = "<group>"; };
+		C7EFA9891FDE3B4200503BC3 /* CattoFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoFooterView.swift; sourceTree = "<group>"; };
+		C7EFA98B1FDE414200503BC3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C7EFA98D1FDE418600503BC3 /* CattoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +122,69 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C73C01871FE0FF3300D5B989 /* Cattos */ = {
+			isa = PBXGroup;
+			children = (
+				C73C01921FE1092400D5B989 /* Cattos.storyboard */,
+				C78960741FDBC3650012B71C /* CattosViewController.swift */,
+			);
+			path = Cattos;
+			sourceTree = "<group>";
+		};
+		C73C01881FE106E500D5B989 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C7EFA98D1FDE418600503BC3 /* CattoUser.swift */,
+				C78960821FDDCDA60012B71C /* Post.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C73C01891FE106F100D5B989 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C73C018A1FE106FF00D5B989 /* Login.storyboard */,
+				C77327611FDBAD3F00215DC9 /* LoginViewController.swift */,
+				C78960701FDBBA930012B71C /* RegisterViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C73C018C1FE107E500D5B989 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C73C018D1FE107F100D5B989 /* Profile.storyboard */,
+				C7EFA98B1FDE414200503BC3 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C73C018F1FE1087700D5B989 /* Posting */ = {
+			isa = PBXGroup;
+			children = (
+				C73C01901FE1089B00D5B989 /* Posting.storyboard */,
+				C78960781FDBCBC80012B71C /* PreCreateViewController.swift */,
+				C789607A1FDBCCED0012B71C /* CreateViewController.swift */,
+				C78960801FDCF19E0012B71C /* PostLocationSearchViewController.swift */,
+				C789607E1FDCE5FE0012B71C /* PostViewController.swift */,
+				C789607C1FDC7CB50012B71C /* CreateCell.swift */,
+			);
+			path = Posting;
+			sourceTree = "<group>";
+		};
+		C73C01941FE10B2300D5B989 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				C78960841FDDF3A10012B71C /* CattoHeaderView.xib */,
+				C78960861FDDF4D30012B71C /* CattoHeaderView.swift */,
+				C7EFA9871FDE3B2500503BC3 /* CattoFooterView.xib */,
+				C7EFA9891FDE3B4200503BC3 /* CattoFooterView.swift */,
+				C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */,
+				C7435A071FE3A131005ECB6D /* GradientView.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
 		C77327411FDBA6BE00215DC9 = {
 			isa = PBXGroup;
 			children = (
@@ -106,26 +206,23 @@
 		C773274C1FDBA6BE00215DC9 /* Cattogram */ = {
 			isa = PBXGroup;
 			children = (
+				C73C01941FE10B2300D5B989 /* Custom Views */,
+				C73C01871FE0FF3300D5B989 /* Cattos */,
+				C73C018F1FE1087700D5B989 /* Posting */,
+				C73C018C1FE107E500D5B989 /* Profile */,
+				C73C01891FE106F100D5B989 /* Login */,
+				C73C01881FE106E500D5B989 /* Models */,
 				C773274D1FDBA6BE00215DC9 /* AppDelegate.swift */,
 				C77327511FDBA6BE00215DC9 /* Main.storyboard */,
+				C7435A091FE3C9F1005ECB6D /* Billabong.ttf */,
 				C77327541FDBA6BE00215DC9 /* Assets.xcassets */,
 				C77327561FDBA6BE00215DC9 /* LaunchScreen.storyboard */,
 				C78960721FDBBEF10012B71C /* GoogleService-Info.plist */,
 				C77327591FDBA6BE00215DC9 /* Info.plist */,
-				C77327611FDBAD3F00215DC9 /* LoginViewController.swift */,
 				C77327631FDBAE3000215DC9 /* CattogramClient.swift */,
-				C78960701FDBBA930012B71C /* RegisterViewController.swift */,
-				C78960741FDBC3650012B71C /* CattosViewController.swift */,
-				C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */,
 				C78960761FDBC9110012B71C /* CattoCell.swift */,
-				C78960781FDBCBC80012B71C /* PreCreateViewController.swift */,
-				C789607A1FDBCCED0012B71C /* CreateViewController.swift */,
-				C789607C1FDC7CB50012B71C /* CreateCell.swift */,
-				C78960801FDCF19E0012B71C /* PostLocationSearchViewController.swift */,
-				C789607E1FDCE5FE0012B71C /* PostViewController.swift */,
-				C78960821FDDCDA60012B71C /* Post.swift */,
-				C78960841FDDF3A10012B71C /* CattoHeaderView.xib */,
-				C78960861FDDF4D30012B71C /* CattoHeaderView.swift */,
+				C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */,
+				C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */,
 			);
 			path = Cattogram;
 			sourceTree = "<group>";
@@ -143,6 +240,7 @@
 				C77327481FDBA6BE00215DC9 /* Resources */,
 				D142823FC8A87CCEB0ED4D73 /* [CP] Embed Pods Frameworks */,
 				969888B963DECCEE4EDCD690 /* [CP] Copy Pods Resources */,
+				C7B6B73B1FE12A57005EA19B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -193,9 +291,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C77327581FDBA6BE00215DC9 /* LaunchScreen.storyboard in Resources */,
+				C7EFA9881FDE3B2500503BC3 /* CattoFooterView.xib in Resources */,
+				C73C018E1FE107F100D5B989 /* Profile.storyboard in Resources */,
+				C73C018B1FE106FF00D5B989 /* Login.storyboard in Resources */,
+				C7435A0A1FE3C9F1005ECB6D /* Billabong.ttf in Resources */,
 				C78960731FDBBEF10012B71C /* GoogleService-Info.plist in Resources */,
 				C78960851FDDF3A10012B71C /* CattoHeaderView.xib in Resources */,
 				C77327551FDBA6BE00215DC9 /* Assets.xcassets in Resources */,
+				C73C01911FE1089B00D5B989 /* Posting.storyboard in Resources */,
+				C73C01931FE1092400D5B989 /* Cattos.storyboard in Resources */,
 				C77327531FDBA6BE00215DC9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,20 +383,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7435A0C1FE4A1D1005ECB6D /* ModalFromRightSegue.swift in Sources */,
 				C789607B1FDBCCED0012B71C /* CreateViewController.swift in Sources */,
 				C77327641FDBAE3000215DC9 /* CattogramClient.swift in Sources */,
 				C78960791FDBCBC80012B71C /* PreCreateViewController.swift in Sources */,
 				C78960831FDDCDA60012B71C /* Post.swift in Sources */,
 				C78960751FDBC3650012B71C /* CattosViewController.swift in Sources */,
 				C789607F1FDCE5FE0012B71C /* PostViewController.swift in Sources */,
+				C7246A401FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift in Sources */,
+				C7EFA98C1FDE414200503BC3 /* ProfileViewController.swift in Sources */,
 				C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */,
+				C7435A081FE3A131005ECB6D /* GradientView.swift in Sources */,
 				C789607D1FDC7CB50012B71C /* CreateCell.swift in Sources */,
+				C7EFA98A1FDE3B4200503BC3 /* CattoFooterView.swift in Sources */,
 				C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */,
 				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
 				C78960771FDBC9110012B71C /* CattoCell.swift in Sources */,
 				C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */,
 				C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */,
 				C78960711FDBBA930012B71C /* RegisterViewController.swift in Sources */,
+				C7EFA98E1FDE418600503BC3 /* CattoUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

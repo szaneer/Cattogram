@@ -21,11 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Firestore.initialize()
         
-        if let currentUser = Auth.auth().currentUser {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let main = storyboard.instantiateViewController(withIdentifier: "main")
-            self.window?.rootViewController = main
-        }
+//        if let currentUser = Auth.auth().currentUser {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let main = storyboard.instantiateViewController(withIdentifier: "main")
+//            self.window?.rootViewController = main
+//        }
         
         return true
     }
