@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 import Firebase
 
 @UIApplicationMain
@@ -21,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Firestore.initialize()
         
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 //        if let currentUser = Auth.auth().currentUser {
 //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //            let main = storyboard.instantiateViewController(withIdentifier: "main")
@@ -52,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        
+        return handled
+    }
 }
 

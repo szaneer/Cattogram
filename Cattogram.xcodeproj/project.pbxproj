@@ -9,10 +9,16 @@
 /* Begin PBXBuildFile section */
 		B3301A809B13E238E024CE45 /* Pods_Cattogram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */; };
 		C7246A401FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */; };
+		C7246A421FE4BF250037D345 /* RegisterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A411FE4BF250037D345 /* RegisterEmailViewController.swift */; };
+		C7246A441FE4C7520037D345 /* ModalFromLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A431FE4C7520037D345 /* ModalFromLeftSegue.swift */; };
+		C7246A4C1FEDF13C0037D345 /* ProfileImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A4B1FEDF13C0037D345 /* ProfileImageSelectViewController.swift */; };
+		C7246A4E1FEDF85E0037D345 /* RegisterCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A4D1FEDF85E0037D345 /* RegisterCreateViewController.swift */; };
 		C73C018B1FE106FF00D5B989 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C018A1FE106FF00D5B989 /* Login.storyboard */; };
 		C73C018E1FE107F100D5B989 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C018D1FE107F100D5B989 /* Profile.storyboard */; };
 		C73C01911FE1089B00D5B989 /* Posting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C01901FE1089B00D5B989 /* Posting.storyboard */; };
 		C73C01931FE1092400D5B989 /* Cattos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C01921FE1092400D5B989 /* Cattos.storyboard */; };
+		C73CB4DA1FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CB4D91FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift */; };
+		C73CB4DC1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CB4DB1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift */; };
 		C7435A081FE3A131005ECB6D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7435A071FE3A131005ECB6D /* GradientView.swift */; };
 		C7435A0A1FE3C9F1005ECB6D /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7435A091FE3C9F1005ECB6D /* Billabong.ttf */; };
 		C7435A0C1FE4A1D1005ECB6D /* ModalFromRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */; };
@@ -59,10 +65,16 @@
 		5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cattogram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8540606215F994AE6146BDE6 /* Pods-Cattogram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cattogram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram.debug.xcconfig"; sourceTree = "<group>"; };
 		C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromRightUnwindSegue.swift; sourceTree = "<group>"; };
+		C7246A411FE4BF250037D345 /* RegisterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailViewController.swift; sourceTree = "<group>"; };
+		C7246A431FE4C7520037D345 /* ModalFromLeftSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromLeftSegue.swift; sourceTree = "<group>"; };
+		C7246A4B1FEDF13C0037D345 /* ProfileImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectViewController.swift; sourceTree = "<group>"; };
+		C7246A4D1FEDF85E0037D345 /* RegisterCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreateViewController.swift; sourceTree = "<group>"; };
 		C73C018A1FE106FF00D5B989 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C73C018D1FE107F100D5B989 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		C73C01901FE1089B00D5B989 /* Posting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posting.storyboard; sourceTree = "<group>"; };
 		C73C01921FE1092400D5B989 /* Cattos.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cattos.storyboard; sourceTree = "<group>"; };
+		C73CB4D91FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectedViewController.swift; sourceTree = "<group>"; };
+		C73CB4DB1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		C7435A071FE3A131005ECB6D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C7435A091FE3C9F1005ECB6D /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromRightSegue.swift; sourceTree = "<group>"; };
@@ -146,6 +158,11 @@
 				C73C018A1FE106FF00D5B989 /* Login.storyboard */,
 				C77327611FDBAD3F00215DC9 /* LoginViewController.swift */,
 				C78960701FDBBA930012B71C /* RegisterViewController.swift */,
+				C7246A411FE4BF250037D345 /* RegisterEmailViewController.swift */,
+				C7246A4B1FEDF13C0037D345 /* ProfileImageSelectViewController.swift */,
+				C7246A4D1FEDF85E0037D345 /* RegisterCreateViewController.swift */,
+				C73CB4D91FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift */,
+				C73CB4DB1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -219,6 +236,7 @@
 				C77327561FDBA6BE00215DC9 /* LaunchScreen.storyboard */,
 				C78960721FDBBEF10012B71C /* GoogleService-Info.plist */,
 				C77327591FDBA6BE00215DC9 /* Info.plist */,
+				C7246A431FE4C7520037D345 /* ModalFromLeftSegue.swift */,
 				C77327631FDBAE3000215DC9 /* CattogramClient.swift */,
 				C78960761FDBC9110012B71C /* CattoCell.swift */,
 				C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */,
@@ -347,7 +365,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
@@ -360,7 +381,10 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
@@ -383,10 +407,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C73CB4DA1FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift in Sources */,
 				C7435A0C1FE4A1D1005ECB6D /* ModalFromRightSegue.swift in Sources */,
+				C7246A4C1FEDF13C0037D345 /* ProfileImageSelectViewController.swift in Sources */,
 				C789607B1FDBCCED0012B71C /* CreateViewController.swift in Sources */,
 				C77327641FDBAE3000215DC9 /* CattogramClient.swift in Sources */,
 				C78960791FDBCBC80012B71C /* PreCreateViewController.swift in Sources */,
+				C73CB4DC1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift in Sources */,
 				C78960831FDDCDA60012B71C /* Post.swift in Sources */,
 				C78960751FDBC3650012B71C /* CattosViewController.swift in Sources */,
 				C789607F1FDCE5FE0012B71C /* PostViewController.swift in Sources */,
@@ -399,10 +426,13 @@
 				C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */,
 				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
 				C78960771FDBC9110012B71C /* CattoCell.swift in Sources */,
+				C7246A4E1FEDF85E0037D345 /* RegisterCreateViewController.swift in Sources */,
+				C7246A441FE4C7520037D345 /* ModalFromLeftSegue.swift in Sources */,
 				C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */,
 				C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */,
 				C78960711FDBBA930012B71C /* RegisterViewController.swift in Sources */,
 				C7EFA98E1FDE418600503BC3 /* CattoUser.swift in Sources */,
+				C7246A421FE4BF250037D345 /* RegisterEmailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

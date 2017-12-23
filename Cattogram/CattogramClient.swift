@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import MapKit
+import FBSDKCoreKit
 
 class CattogramClient {
     static let sharedInstance = CattogramClient()
@@ -42,56 +43,142 @@ class CattogramClient {
         }
     }
     
-    func registerUser(name: String?, email: String?, password: String?, image: UIImage?, success: @escaping () -> (), failure: @escaping (RegisterError) -> ()) {
-        guard let name = name else {
-            failure(RegisterError.badInput)
+    func registerUser(name: String?, username: String?, email: String?, password: String?, image: UIImage?, success: @escaping () -> (), failure: @escaping (RegisterError) -> ()) {
+        guard let name = name, !name.isEmpty  else {
+            failure(RegisterError.emptyInput)
             return
         }
         
-        guard let email = email else {
-            failure(RegisterError.badInput)
+        guard let username = username, !username.isEmpty else {
+            failure(RegisterError.emptyInput)
             return
         }
         
-        guard let password = password else {
-            failure(RegisterError.badInput)
+        guard let email = email, !email.isEmpty  else {
+            failure(RegisterError.emptyInput)
             return
         }
         
-        var userData = ["name": name, "email": email, "postCount": 0] as [String : Any]
+        guard let password = password, !password.isEmpty  else {
+            failure(RegisterError.emptyInput)
+            return
+        }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error != nil {
-                failure(RegisterError.authentication)
-            } else if let user = user {
-                userData["uid"] = user.uid
+        if !email.isValidEmail() {
+            failure(RegisterError.invalidEmail)
+            return
+        }
+        
+        if password.count < 6 {
+            failure(RegisterError.shortPassword)
+            return
+        }
+        
+        checkUsername(username: username, success: { (exists) in
+            if exists {
+                failure(RegisterError.usernameTaken)
+            } else {
+                var userData = ["name": name, "username": username, "email": email, "postCount": 0] as [String : Any]
                 
-                let userDocument = self.userCollection.document(user.uid)
-                let userImageDocument = self.userImagesCollection.document(user.uid)
-                
-                self.db.runTransaction({ (transaction, errorPointer) -> Any? in
-                    transaction.setData(userData, forDocument: userDocument)
-                    
-                    if let image = image {
-                        let imageString = base64EncodeImage(image)
-                        transaction.setData(["image": imageString], forDocument: userImageDocument)
-                    } else {
-                        transaction.setData([:], forDocument: userImageDocument)
-                    }
-                    
-                    return user
-                }, completion: { (user, error) in
-                    if error != nil {
-                        if let user = user as? User {
-                            user.delete(completion: nil)
+                Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+                    if let error = error {
+                        if error.localizedDescription == "The email address is already in use by another account." {
+                            failure(RegisterError.emailTaken)
+                            return
+                        } else {
+                            failure(RegisterError.generic)
+                            return
                         }
-                        failure(RegisterError.data)
-                    } else {
-                        success()
+                    } else if let user = user {
+                        userData["uid"] = user.uid
+                        
+                        let userDocument = self.userCollection.document(user.uid)
+                        let userImageDocument = self.userImagesCollection.document(user.uid)
+                        
+                        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+                            transaction.setData(userData, forDocument: userDocument)
+                            
+                            if let image = image {
+                                let imageString = base64EncodeImage(image)
+                                transaction.setData(["image": imageString], forDocument: userImageDocument)
+                            } else {
+                                transaction.setData([:], forDocument: userImageDocument)
+                            }
+                            
+                            return user
+                        }, completion: { (user, error) in
+                            if error != nil {
+                                if let user = user as? User {
+                                    user.delete(completion: nil)
+                                }
+                                failure(RegisterError.generic)
+                            } else {
+                                success()
+                            }
+                        })
                     }
-                })
+                }
+            }
+        }) { (error) in
+            failure(RegisterError.generic)
+        }
+        
+    }
+    
+    func changeUserProfileImage(user: String, image: UIImage!, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        userImagesCollection.document(user).setData(["image" : base64EncodeImage(image)]) { (error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
             }
         }
+    }
+    func checkUsername(username: String, success: @escaping (Bool) -> (), failure: @escaping (Error) -> ()) {
+        userCollection.whereField("username", isEqualTo: username).getDocuments { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                if snapshot.count > 0 {
+                    success(true)
+                } else {
+                    success(false)
+                }
+            }
+        }
+    }
+    
+    func loginWithFacebook(credential: AuthCredential, success: @escaping (User, [String: Any], Bool) -> (), failure: @escaping (Error) -> ()) {
+        
+        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start { (request, result, error) in
+            if let error = error {
+                failure(error)
+            } else if let result = result {
+                let userInfo = result as! [String: Any]
+                
+                Auth.auth().signIn(with: credential) { (user, error) in
+                    if let error = error {
+                        failure(error)
+                    } else if let user = user {
+                        self.db.collection("users").document(user.uid).getDocument(completion: { (userDoc, error) in
+                            if let error = error {
+                                failure(error)
+                            } else if userDoc!.exists {
+                                success(user, userInfo, true)
+                            } else {
+                                success(user, userInfo, false)
+                            }
+                        })
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func registerFacebookUser(uid: String, userData: [String: Any], userImage: UIImage?, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        
     }
     
     func createPost(user: String, caption: String?, image: UIImage?, mapItem: MKMapItem?, success: @escaping () -> (), failure: @escaping (PostError) -> ()) {
@@ -304,10 +391,39 @@ func parseAddress(selectedItem: MKPlacemark) -> String {
     return addressLine
 }
 
-enum RegisterError: Error {
-    case badInput
-    case authentication
-    case data
+enum RegisterError: Error, LocalizedError {
+    case emptyInput
+    case invalidEmail
+    case shortPassword
+    case usernameTaken
+    case emailTaken
+    case generic
+    
+    public var errorDescription: String? {
+        switch self {
+        case .emptyInput:
+            return NSLocalizedString("Please fill out all fields.", comment: "Register error")
+        case .invalidEmail:
+            return NSLocalizedString("Invalid email address. Please use a valid email address.", comment: "Register error")
+        case .shortPassword:
+            return NSLocalizedString("Password must be atleast six characters in length.", comment: "Register error")
+        case .usernameTaken:
+            return NSLocalizedString("Username is taken. Please use a different one.", comment: "Register error")
+        case .emailTaken:
+            return NSLocalizedString("Email is taken. Please use a different one.", comment: "Register error")
+        case .generic:
+            return NSLocalizedString("Error registering. Please try again.", comment: "Register error")
+        }
+    }
+}
+
+extension String {
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: self)
+    }
 }
 
 enum LoginError: Error {

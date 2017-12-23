@@ -16,12 +16,10 @@ class CreateViewController: UIViewController {
     
     var assets: PHFetchResult<PHAsset>?
     var whiteView = UIView()
+    var whiteAdded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let background = UIImage(named: "background")!
-        navigationController?.navigationBar.setBackgroundImage(background, for: .default)
         
         whiteView.backgroundColor = .white
         whiteView.alpha = 0.5
@@ -50,7 +48,6 @@ class CreateViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
-        collectionView.reloadData()
     }
     
     @IBAction func onCancel(_ sender: Any) {
@@ -67,6 +64,15 @@ class CreateViewController: UIViewController {
         case "postSegue":
             let destination = segue.destination as! PostViewController
             destination.image = currentImageView.image
+            
+        case "profileImageSegue":
+            let destination = segue.destination as! ProfileImageSelectedViewController
+            
+            UIGraphicsBeginImageContext(currentImageView.frame.size)
+            currentImageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            destination.image = newImage!
         default:
             break
         }
@@ -100,6 +106,12 @@ extension CreateViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         guard let assets = assets else {
             return cell
+        }
+        
+        if !whiteAdded {
+            whiteAdded = true
+            self.whiteView.frame = cell.bounds
+            cell.addSubview(self.whiteView)
         }
         
         PHImageManager.default().requestImage(for: assets[indexPath.row] , targetSize: CGSize(width: currentImageView.frame.height, height:  currentImageView.frame.height), contentMode: .aspectFill, options: nil) { (image: UIImage?, info: [AnyHashable : Any]?) -> Void in

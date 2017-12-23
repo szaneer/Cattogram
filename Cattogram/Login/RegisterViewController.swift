@@ -7,16 +7,14 @@
 //
 
 import UIKit
+import Firebase
+import FBSDKLoginKit
 
 class RegisterViewController: UIViewController {
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var confirmPasswordField: UITextField!
-    @IBOutlet weak var profileImageView: UIImageView!
+    
     @IBOutlet weak var gradientView: GradientView!
+    @IBOutlet weak var fbButton: FBSDKLoginButton!
     
     var gradientColors: [(first: UIColor, second: UIColor)] = []
     var currGradient = 0
@@ -24,12 +22,12 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fbButton.delegate = self
+        
         let background = UIImage(named: "background")!
         navigationController?.navigationBar.setBackgroundImage(background, for: .default)
         
-        containerView.layer.borderWidth = 0.5
-        containerView.layer.borderColor = UIColor.lightGray.cgColor
-        
+       
         gradientColors.append((first: #colorLiteral(red: 0.2274509804, green: 0.2549019608, blue: 0.8823529412, alpha: 1), second: #colorLiteral(red: 0.4705882353, green: 0.168627451, blue: 0.7254901961, alpha: 1)))
         gradientColors.append((first: #colorLiteral(red: 0.4705882353, green: 0.168627451, blue: 0.7254901961, alpha: 1), second: #colorLiteral(red: 0.8039215686, green: 0.1803921569, blue: 0.4352941176, alpha: 1)))
         gradientColors.append((first: #colorLiteral(red: 0.8039215686, green: 0.1803921569, blue: 0.4352941176, alpha: 1), second: #colorLiteral(red: 0.8862745098, green: 0.3960784314, blue: 0.2588235294, alpha: 1)))
@@ -48,22 +46,36 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    @IBAction func onRegister(_ sender: Any) {
-        CattogramClient.sharedInstance.registerUser(name: nameField.text, email: emailField.text, password: passwordField.text, image: profileImageView.image, success: {
-            self.performSegue(withIdentifier: "registerSegue", sender: nil)
+    @IBAction func unwindFromRegisterEmailViewController(_ sender: UIStoryboardSegue) {
+        //performSegue(withIdentifier: "unwindToLoginSegue", sender: nil)
+    }
+    
+}
+
+extension RegisterViewController: FBSDKLoginButtonDelegate {
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        if (result.isCancelled) {
+            return
+        }
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+        CattogramClient.sharedInstance.loginWithFacebook(credential: credential, success: { (user, userData, exists) in
+            if exists {
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            } else {
+                
+            }
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
     }
-    */
-
 }
