@@ -18,8 +18,18 @@ class CreateViewController: UIViewController {
     var whiteView = UIView()
     var whiteAdded = false
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.topItem?.title = "All Photos"
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appearance = UITabBarItem.appearance()
+        let attributes = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20)]
+        appearance.setTitleTextAttributes(attributes, for: .normal)
         
         whiteView.backgroundColor = .white
         whiteView.alpha = 0.5
@@ -63,7 +73,12 @@ class CreateViewController: UIViewController {
         switch id {
         case "postSegue":
             let destination = segue.destination as! PostViewController
-            destination.image = currentImageView.image
+            
+            UIGraphicsBeginImageContext(currentImageView.frame.size)
+            currentImageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            destination.image = newImage!
             
         case "profileImageSegue":
             let destination = segue.destination as! ProfileImageSelectedViewController

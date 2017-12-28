@@ -20,6 +20,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DDj-X3-vlY">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -30,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="2447" y="-310"/>
         </scene>
-        <!--Cattos-->
+        <!--Cattogram-->
         <scene sceneID="pul-Dl-8Q8">
             <objects>
                 <tableViewController id="NWC-q4-I0Y" customClass="CattosViewController" customModule="Cattogram" customModuleProvider="target" sceneMemberID="viewController">
@@ -39,11 +41,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cattoCell" rowHeight="472" id="KUG-R0-lga" customClass="CattoCell" customModule="Cattogram" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="472"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cattoCell" rowHeight="474" id="KUG-R0-lga" customClass="CattoCell" customModule="Cattogram" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="474"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KUG-R0-lga" id="nVK-5l-Oau">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="471.66666666666669"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="473.66666666666669"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="ZmK-8b-gwU">
@@ -61,23 +63,26 @@
                                             </constraints>
                                             <state key="normal" backgroundImage="commentIcon"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jss-y2-BFj">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jss-y2-BFj">
                                             <rect key="frame" x="8" y="379.66666666666669" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="jss-y2-BFj" secondAttribute="height" multiplier="1:1" id="05m-RJ-t4M"/>
                                                 <constraint firstAttribute="width" constant="40" id="BfT-O2-mJH"/>
                                             </constraints>
                                             <state key="normal" backgroundImage="likeIcon"/>
+                                            <connections>
+                                                <action selector="onLike:" destination="KUG-R0-lga" eventType="touchUpInside" id="sYv-xQ-KBX"/>
+                                            </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEx-pv-eN5">
-                                            <rect key="frame" x="16" y="416" width="343" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEx-pv-eN5">
+                                            <rect key="frame" x="16" y="419.66666666666669" width="343" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQC-iK-rZE">
-                                            <rect key="frame" x="16" y="436" width="343" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQC-iK-rZE">
+                                            <rect key="frame" x="16" y="440.66666666666669" width="343" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -100,7 +105,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="captionLabel" destination="rQC-iK-rZE" id="6VV-Id-gTG"/>
                                     <outlet property="cattoView" destination="ZmK-8b-gwU" id="boB-Pg-3w1"/>
+                                    <outlet property="likeButton" destination="jss-y2-BFj" id="Wef-04-zze"/>
+                                    <outlet property="likeLabel" destination="MEx-pv-eN5" id="BGM-HX-qbg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -110,11 +118,11 @@
                             <outlet property="delegate" destination="NWC-q4-I0Y" id="V7g-r1-Ruo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Cattos" id="OZ9-s8-XNw"/>
+                    <navigationItem key="navigationItem" title="Cattogram" id="OZ9-s8-XNw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvG-kv-xm8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3437.5999999999999" y="-310.34482758620692"/>
+            <point key="canvasLocation" x="3460" y="-310"/>
         </scene>
     </scenes>
     <resources>

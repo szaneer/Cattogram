@@ -32,7 +32,7 @@ class ProfileImageSelectViewController: UIViewController {
         let actionSheet = UIAlertController(title: "Change Profile Photo", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (action) in
-            print("hello")
+            self.performSegue(withIdentifier: "takePhotoSegue", sender: nil)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Choose From Library", style: .default, handler: { (action) in

@@ -1,5 +1,5 @@
 //
-//  PhotoCaptureViewController.swift
+//  PostImageCaptureViewController.swift
 //  Cattogram
 //
 //  Created by Siraj Zaneer on 12/22/17.
@@ -9,8 +9,8 @@
 import UIKit
 import AVFoundation
 
-class PhotoCaptureViewController: UIViewController {
-
+class PostImageCaptureViewController: UIViewController {
+    
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var captureViewOutside: UIView!
     @IBOutlet weak var captureViewInside: UIView!
@@ -21,20 +21,21 @@ class PhotoCaptureViewController: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer?
     var flash = false
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        navigationItem.title = "Photo"
+        navigationController?.navigationBar.topItem?.title = "Photo"
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         captureViewOutside.layer.cornerRadius = captureViewOutside.frame.width / 2.0
         captureViewInside.layer.cornerRadius = captureViewInside.frame.width / 2.0
-
+        
         session.sessionPreset = .photo
         
         let device = AVCaptureDevice.default(for: .video)
@@ -54,9 +55,9 @@ class PhotoCaptureViewController: UIViewController {
             stillImageOutput.isHighResolutionCaptureEnabled = true
             session.addOutput(stillImageOutput)
         }
-
+        
     }
-
+    
     @IBAction func onSwitch(_ sender: Any) {
         session.beginConfiguration()
         let currentInput = session.inputs[0]
@@ -85,7 +86,7 @@ class PhotoCaptureViewController: UIViewController {
     @IBAction func onFlash(_ sender: Any) {
         flash = !flash
     }
-
+    
     @IBAction func onCapture(_ sender: Any) {
         let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecType.jpeg])
         photoSettings.isHighResolutionPhotoEnabled = true
@@ -107,7 +108,7 @@ class PhotoCaptureViewController: UIViewController {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -118,10 +119,6 @@ class PhotoCaptureViewController: UIViewController {
         }
         
         switch id {
-        case "profileImageTakenSegue":
-            let destination = segue.destination as! ProfileImageSelectedViewController
-            let image = sender as! UIImage
-            destination.image = resizeAndCrop(image: image, newSize: CGSize(width: 400, height: 400))
         case "postImageTakenSegue":
             let destination = segue.destination as! PostViewController
             let image = sender as! UIImage
@@ -131,10 +128,10 @@ class PhotoCaptureViewController: UIViewController {
         }
     }
     
-
+    
 }
 
-extension PhotoCaptureViewController: AVCapturePhotoCaptureDelegate {
+extension PostImageCaptureViewController: AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         if let error = error {
@@ -142,8 +139,9 @@ extension PhotoCaptureViewController: AVCapturePhotoCaptureDelegate {
         }
         
         if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
-            performSegue(withIdentifier: "profileImageTakenSegue", sender: UIImage(data: dataImage)!)
+            performSegue(withIdentifier: "postImageTakenSegue", sender: UIImage(data: dataImage)!)
         }
         
     }
 }
+

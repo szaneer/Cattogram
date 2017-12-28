@@ -33,7 +33,7 @@ class ProfileImageSelectedViewController: UIViewController {
         let actionSheet = UIAlertController(title: "Change Profile Photo", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (action) in
-            print("hello")
+            self.performSegue(withIdentifier: "takePhotoSegue", sender: nil)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Choose From Library", style: .default, handler: { (action) in
@@ -43,6 +43,12 @@ class ProfileImageSelectedViewController: UIViewController {
     }
     
     @IBAction func onDone(_ sender: Any) {
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.center = doneButton.center
+        doneButton.setTitle("", for: .normal)
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
         CattogramClient.sharedInstance.changeUserProfileImage(user: Auth.auth().currentUser!.uid, image: image, success: {
             self.performSegue(withIdentifier: "doneSegue", sender: nil)
         }) { (error) in
@@ -50,6 +56,9 @@ class ProfileImageSelectedViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+            self.doneButton.setTitle("Done", for: .normal)
         }
     }
     

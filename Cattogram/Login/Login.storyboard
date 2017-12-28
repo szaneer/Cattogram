@@ -239,13 +239,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="310.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cattogram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndc-i7-pHl">
-                                        <rect key="frame" x="103.33333333333333" y="122.33333333333331" width="168.33333333333337" height="68"/>
+                                        <rect key="frame" x="103.66666666666667" y="121.33333333333331" width="168.33333333333331" height="68"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="55"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up to see cattos from your friends." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fg6-LL-Lde">
-                                        <rect key="frame" x="35" y="206.33333333333334" width="305" height="20.333333333333343"/>
+                                        <rect key="frame" x="35" y="205.33333333333334" width="305" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -610,6 +610,7 @@
                         <outlet property="addPhotoButton" destination="b6U-KQ-QRb" id="r95-kX-wu7"/>
                         <outlet property="cameraIconContainerView" destination="0IO-XE-4sM" id="hf3-SA-lMN"/>
                         <segue destination="iy1-xx-CwV" kind="modal" identifier="selectFromLibrarySegue" id="Pk0-sB-5Ct"/>
+                        <segue destination="3E7-pE-Hnw" kind="presentation" identifier="takePhotoSegue" id="YIG-WH-ls1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LQa-av-GMc" sceneMemberID="firstResponder"/>
@@ -733,13 +734,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7MF-gJ-6t8">
-                                <rect key="frame" x="0.0" y="44" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="375"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7MF-gJ-6t8" secondAttribute="height" multiplier="1:1" id="cKv-VB-nz4"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="z00-yu-EBt">
-                                <rect key="frame" x="0.0" y="420" width="375" height="358"/>
+                                <rect key="frame" x="0.0" y="464" width="375" height="314"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="QhW-EV-cnq">
                                     <size key="itemSize" width="96" height="96"/>
@@ -843,23 +844,88 @@
         <!--Photo-->
         <scene sceneID="aGF-JA-yVn">
             <objects>
-                <viewController id="TfN-4X-pLw" sceneMemberID="viewController">
+                <viewController id="TfN-4X-pLw" customClass="PhotoCaptureViewController" customModule="Cattogram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9UB-C3-v95">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Pc-Ig-j6i">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFQ-z3-kE8">
                                 <rect key="frame" x="0.0" y="88" width="375" height="375"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="3Pc-Ig-j6i" secondAttribute="height" multiplier="1:1" id="fU5-Nz-VSU"/>
+                                    <constraint firstAttribute="width" secondItem="NFQ-z3-kE8" secondAttribute="height" multiplier="1:1" id="vWr-2A-fMY"/>
                                 </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraFlashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="IEy-Aw-h3S">
+                                <rect key="frame" x="332" y="412.66666666666669" width="35" height="35"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="IEy-Aw-h3S" secondAttribute="height" multiplier="1:1" id="98g-bw-VoQ"/>
+                                    <constraint firstAttribute="width" constant="35" id="v3V-fS-Tq1"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="5Xs-Tn-DDh" appends="YES" id="7xX-a5-Ipe"/>
+                                </connections>
                             </imageView>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraSwitchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mAZ-Ag-9Gc">
+                                <rect key="frame" x="0.0" y="405" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mAZ-Ag-9Gc" secondAttribute="height" multiplier="1:1" id="7Bu-ng-E4u"/>
+                                    <constraint firstAttribute="width" constant="50" id="ElV-xi-uoT"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Bqt-kz-sHl" appends="YES" id="9Tx-XU-0ED"/>
+                                </connections>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mea-Xp-pi3">
+                                <rect key="frame" x="0.0" y="463" width="375" height="315"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ueV-QV-b1H">
+                                        <rect key="frame" x="150" y="120" width="75" height="75"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHL-oj-u0f">
+                                                <rect key="frame" x="12.666666666666657" y="12.666666666666629" width="50" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="Yb4-Hu-DgW"/>
+                                                    <constraint firstAttribute="width" secondItem="hHL-oj-u0f" secondAttribute="height" multiplier="1:1" id="p2o-Ss-sVu"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="4qY-YH-dAw" appends="YES" id="iO4-eO-vHd"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="ms0-V6-WSa"/>
+                                            <constraint firstAttribute="width" secondItem="ueV-QV-b1H" secondAttribute="height" multiplier="1:1" id="oA2-zH-XrG"/>
+                                            <constraint firstItem="hHL-oj-u0f" firstAttribute="centerX" secondItem="ueV-QV-b1H" secondAttribute="centerX" id="wsS-Mx-hLZ"/>
+                                            <constraint firstItem="hHL-oj-u0f" firstAttribute="centerY" secondItem="ueV-QV-b1H" secondAttribute="centerY" id="zMB-fU-gqf"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ueV-QV-b1H" firstAttribute="centerX" secondItem="mea-Xp-pi3" secondAttribute="centerX" id="39T-z0-qPQ"/>
+                                    <constraint firstItem="ueV-QV-b1H" firstAttribute="centerY" secondItem="mea-Xp-pi3" secondAttribute="centerY" id="jFe-Z5-ZVq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3Pc-Ig-j6i" firstAttribute="top" secondItem="qZV-ew-iYA" secondAttribute="top" id="4MN-lD-yNL"/>
-                            <constraint firstItem="qZV-ew-iYA" firstAttribute="trailing" secondItem="3Pc-Ig-j6i" secondAttribute="trailing" id="PAd-vb-9wz"/>
-                            <constraint firstItem="3Pc-Ig-j6i" firstAttribute="leading" secondItem="qZV-ew-iYA" secondAttribute="leading" id="WWf-vM-e6s"/>
+                            <constraint firstItem="qZV-ew-iYA" firstAttribute="bottom" secondItem="mea-Xp-pi3" secondAttribute="bottom" id="0xH-NL-ghc"/>
+                            <constraint firstItem="IEy-Aw-h3S" firstAttribute="centerY" secondItem="mAZ-Ag-9Gc" secondAttribute="centerY" id="8tg-jJ-mhE"/>
+                            <constraint firstItem="mAZ-Ag-9Gc" firstAttribute="leading" secondItem="NFQ-z3-kE8" secondAttribute="leading" id="8vq-tE-WnA"/>
+                            <constraint firstItem="mAZ-Ag-9Gc" firstAttribute="bottom" secondItem="NFQ-z3-kE8" secondAttribute="bottom" constant="-8" id="A87-nw-Yl2"/>
+                            <constraint firstItem="qZV-ew-iYA" firstAttribute="trailing" secondItem="IEy-Aw-h3S" secondAttribute="trailing" constant="8" id="CWf-E0-9nx"/>
+                            <constraint firstItem="qZV-ew-iYA" firstAttribute="trailing" secondItem="mea-Xp-pi3" secondAttribute="trailing" id="XGb-kf-CFq"/>
+                            <constraint firstItem="mea-Xp-pi3" firstAttribute="leading" secondItem="qZV-ew-iYA" secondAttribute="leading" id="dUT-Zg-O6c"/>
+                            <constraint firstItem="NFQ-z3-kE8" firstAttribute="trailing" secondItem="qZV-ew-iYA" secondAttribute="trailing" id="gj2-hG-QuK"/>
+                            <constraint firstItem="mea-Xp-pi3" firstAttribute="top" secondItem="NFQ-z3-kE8" secondAttribute="bottom" id="hOq-Qn-Vck"/>
+                            <constraint firstItem="NFQ-z3-kE8" firstAttribute="top" secondItem="qZV-ew-iYA" secondAttribute="top" id="j0D-a7-stX"/>
+                            <constraint firstItem="NFQ-z3-kE8" firstAttribute="leading" secondItem="qZV-ew-iYA" secondAttribute="leading" id="ks7-z9-VRg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qZV-ew-iYA"/>
                     </view>
@@ -871,13 +937,37 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="onCancel:" destination="TfN-4X-pLw" eventType="touchUpInside" id="l4F-0j-wZ6"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cameraView" destination="NFQ-z3-kE8" id="hdJ-dY-QgW"/>
+                        <outlet property="captureViewInside" destination="hHL-oj-u0f" id="oZ9-MI-ZwX"/>
+                        <outlet property="captureViewOutside" destination="ueV-QV-b1H" id="K2b-E3-UbQ"/>
+                        <segue destination="n4U-ac-O6Z" kind="custom" identifier="profileImageTakenSegue" customClass="ModalFromRightSegue" customModule="Cattogram" customModuleProvider="target" id="Cah-Ja-t18"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erG-VS-csp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="5Xs-Tn-DDh">
+                    <connections>
+                        <action selector="onFlash:" destination="TfN-4X-pLw" id="Dd2-1L-1RB"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Bqt-kz-sHl">
+                    <connections>
+                        <action selector="onSwitch:" destination="TfN-4X-pLw" id="F56-Dn-rrF"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="4qY-YH-dAw">
+                    <connections>
+                        <action selector="onCapture:" destination="TfN-4X-pLw" id="pgF-1a-oPa"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3705" y="299"/>
+            <point key="canvasLocation" x="3704.8000000000002" y="298.52216748768473"/>
         </scene>
         <!--Register-->
         <scene sceneID="1Lw-BT-tkP">
@@ -950,7 +1040,8 @@
                         <outlet property="doneButton" destination="Nd0-o2-3GZ" id="bHo-eR-bxz"/>
                         <outlet property="profileImageView" destination="lKj-F9-wPH" id="qPE-Yl-O4N"/>
                         <segue destination="iOg-g8-yTD" kind="presentation" identifier="doneSegue" id="qiq-Xq-pLW"/>
-                        <segue destination="j4J-Gc-s21" kind="custom" identifier="selectFromLibrarySegue" customClass="ModalFromRightSegue" customModule="Cattogram" customModuleProvider="target" id="mVL-AI-dgJ"/>
+                        <segue destination="3E7-pE-Hnw" kind="presentation" identifier="takePhotoSegue" id="QQL-8X-2Re"/>
+                        <segue destination="iy1-xx-CwV" kind="presentation" identifier="selectFromLibrarySegue" id="sho-ms-ztH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCQ-T4-2BN" sceneMemberID="firstResponder"/>
@@ -983,11 +1074,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cameraFlashIcon" width="1200" height="1200"/>
+        <image name="cameraSwitchIcon" width="1200" height="1200"/>
         <image name="registerCameraIcon" width="1200" height="1200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mVL-AI-dgJ"/>
-        <segue reference="qiq-Xq-pLW"/>
+        <segue reference="FSQ-nK-Qfu"/>
+        <segue reference="QQL-8X-2Re"/>
+        <segue reference="Cah-Ja-t18"/>
+        <segue reference="sho-ms-ztH"/>
+        <segue reference="Azj-A8-8xa"/>
         <segue reference="VvA-C7-kAl"/>
     </inferredMetricsTieBreakers>
 </document>

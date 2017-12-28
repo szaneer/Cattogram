@@ -181,6 +181,10 @@ class CattogramClient {
         
     }
     
+    func getUserInfo() {
+        
+    }
+    
     func createPost(user: String, caption: String?, image: UIImage?, mapItem: MKMapItem?, success: @escaping () -> (), failure: @escaping (PostError) -> ()) {
         guard let image = image else {
             failure(PostError.badInput)
@@ -275,6 +279,82 @@ class CattogramClient {
         })
     }
     
+    func getUserLikeStatus(post: String, user: String, success: @escaping (Bool) -> (), failure: @escaping (Error) -> ()) {
+        postLikes.document(post).getDocument { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                let postLikeData = snapshot.data()
+                
+                if postLikeData[user] == nil {
+                    success(false)
+                } else {
+                    success(true)
+                }
+            }
+        }
+    }
+    
+    func likePost(post: String, user: String, success: @escaping (Int) -> (), failure: @escaping (Error) -> ()) {
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var postDoc: DocumentSnapshot
+            do {
+                postDoc = try transaction.getDocument(self.postCollection.document(post))
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            let postData = postDoc.data()
+            
+            var likeCount = postData["likeCount"] as! Int
+            likeCount += 1
+            
+            transaction.updateData(["likeCount" : likeCount], forDocument: self.postCollection.document(post))
+            transaction.updateData([user : true], forDocument: self.postLikes.document(post))
+            
+            return likeCount
+        }) { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success(object as! Int)
+            }
+        }
+    }
+    
+    func unLikePost(post: String, user: String, success: @escaping (Int) -> (), failure: @escaping (Error) -> ()) {
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var postDoc: DocumentSnapshot
+            var postLikeDoc: DocumentSnapshot
+            do {
+                postDoc = try transaction.getDocument(self.postCollection.document(post))
+                postLikeDoc = try transaction.getDocument(self.postLikes.document(post))
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            let postData = postDoc.data()
+            var postLikeData = postLikeDoc.data()
+            
+            var likeCount = postData["likeCount"] as! Int
+            likeCount -= 1
+            postLikeData.removeValue(forKey: user)
+            
+            transaction.updateData(["likeCount" : likeCount], forDocument: self.postCollection.document(post))
+            transaction.setData(postLikeData, forDocument: self.postLikes.document(post))
+            
+            return likeCount
+        }) { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success(object as! Int)
+            }
+        }
+    }
+    
     func getUserPosts(uid: String, success: @escaping ([Post]) -> (), failure: @escaping (PostError) -> ()) {
         let postQuery = postCollection.whereField("owner", isEqualTo: uid)
         
@@ -350,6 +430,18 @@ func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
     let resizedImage = UIImagePNGRepresentation(newImage!)
     UIGraphicsEndImageContext()
     return resizedImage!
+}
+
+func resizeAndCrop(image: UIImage, newSize: CGSize) -> UIImage {
+    let resizeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+    resizeImageView.contentMode = UIViewContentMode.scaleAspectFill
+    resizeImageView.image = image
+    
+    UIGraphicsBeginImageContext(resizeImageView.frame.size)
+    resizeImageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage!
 }
 
 func base64EncodeImage(_ image: UIImage) -> String {

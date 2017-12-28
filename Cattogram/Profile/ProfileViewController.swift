@@ -161,18 +161,10 @@ class ProfilePostsTableViewController: NSObject, UITableViewDelegate, UITableVie
         
         let post = posts[indexPath.section]
         
-        cell.cattoView.image = UIImage(named: "image_placeholder")
         cell.tag = indexPath.section
+        cell.index = indexPath.section
+        cell.post = post
         
-        CattogramClient.sharedInstance.getPostImage(uid: post.uid, success: { (image) in
-            DispatchQueue.main.async {
-                if cell.tag == indexPath.section {
-                    cell.cattoView.image = image
-                }
-            }
-        }) { (error) in
-            print(error.localizedDescription)
-        }
         
         return cell
     }
@@ -196,22 +188,7 @@ class ProfilePostsTableViewController: NSObject, UITableViewDelegate, UITableVie
         }
         
         
-        // let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        headerView.backgroundColor = UIColor(white: 1.0, alpha: 0.9)
-        headerView.profileView.clipsToBounds = true
-        headerView.profileView.layer.cornerRadius = 15;
-        headerView.profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
-        headerView.profileView.layer.borderWidth = 1;
-        CattogramClient.sharedInstance.getUserImage(uid: post.owner, success: { (image) in
-            if let image = image {
-                headerView.profileView.image = image
-            }
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-        headerView.nameLabel.text = post.name
-        
+        headerView.post = post
         
         
         return headerView

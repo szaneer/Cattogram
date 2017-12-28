@@ -19,6 +19,8 @@
 		C73C01931FE1092400D5B989 /* Cattos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73C01921FE1092400D5B989 /* Cattos.storyboard */; };
 		C73CB4DA1FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CB4D91FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift */; };
 		C73CB4DC1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CB4DB1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift */; };
+		C73CB4DE1FEE38FA00CB2BB6 /* PostImageCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CB4DD1FEE38FA00CB2BB6 /* PostImageCaptureViewController.swift */; };
+		C73CB4E01FEE3A8E00CB2BB6 /* PostingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CB4DF1FEE3A8E00CB2BB6 /* PostingTabBarController.swift */; };
 		C7435A081FE3A131005ECB6D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7435A071FE3A131005ECB6D /* GradientView.swift */; };
 		C7435A0A1FE3C9F1005ECB6D /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7435A091FE3C9F1005ECB6D /* Billabong.ttf */; };
 		C7435A0C1FE4A1D1005ECB6D /* ModalFromRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */; };
@@ -75,6 +77,8 @@
 		C73C01921FE1092400D5B989 /* Cattos.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cattos.storyboard; sourceTree = "<group>"; };
 		C73CB4D91FEE140100CB2BB6 /* ProfileImageSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectedViewController.swift; sourceTree = "<group>"; };
 		C73CB4DB1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
+		C73CB4DD1FEE38FA00CB2BB6 /* PostImageCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCaptureViewController.swift; sourceTree = "<group>"; };
+		C73CB4DF1FEE3A8E00CB2BB6 /* PostingTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingTabBarController.swift; sourceTree = "<group>"; };
 		C7435A071FE3A131005ECB6D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C7435A091FE3C9F1005ECB6D /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		C7435A0B1FE4A1D1005ECB6D /* ModalFromRightSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromRightSegue.swift; sourceTree = "<group>"; };
@@ -185,6 +189,8 @@
 				C78960801FDCF19E0012B71C /* PostLocationSearchViewController.swift */,
 				C789607E1FDCE5FE0012B71C /* PostViewController.swift */,
 				C789607C1FDC7CB50012B71C /* CreateCell.swift */,
+				C73CB4DD1FEE38FA00CB2BB6 /* PostImageCaptureViewController.swift */,
+				C73CB4DF1FEE3A8E00CB2BB6 /* PostingTabBarController.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 				C789607B1FDBCCED0012B71C /* CreateViewController.swift in Sources */,
 				C77327641FDBAE3000215DC9 /* CattogramClient.swift in Sources */,
 				C78960791FDBCBC80012B71C /* PreCreateViewController.swift in Sources */,
+				C73CB4DE1FEE38FA00CB2BB6 /* PostImageCaptureViewController.swift in Sources */,
 				C73CB4DC1FEE1BD300CB2BB6 /* PhotoCaptureViewController.swift in Sources */,
 				C78960831FDDCDA60012B71C /* Post.swift in Sources */,
 				C78960751FDBC3650012B71C /* CattosViewController.swift in Sources */,
@@ -426,6 +433,7 @@
 				C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */,
 				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
 				C78960771FDBC9110012B71C /* CattoCell.swift in Sources */,
+				C73CB4E01FEE3A8E00CB2BB6 /* PostingTabBarController.swift in Sources */,
 				C7246A4E1FEDF85E0037D345 /* RegisterCreateViewController.swift in Sources */,
 				C7246A441FE4C7520037D345 /* ModalFromLeftSegue.swift in Sources */,
 				C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */,
