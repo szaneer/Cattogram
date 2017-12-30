@@ -528,7 +528,43 @@ class CattogramClient {
         }
     }
     
-    func checkIfCatto
+    func checkIfCatto(image: UIImage, success: @escaping (Bool) -> (), failure: @escaping (Error) -> ()) {
+        let subscriptionKey = ""
+        let imageData  = UIImageJPEGRepresentation(image, 1.0)!
+        
+        let endpoint = ("https://westus.api.cognitive.microsoft.com/vision/v1.0/tag")
+        
+        let requestURL = URL(string: endpoint)!
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        var request:URLRequest = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        request.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+        request.addValue(subscriptionKey, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+        request.httpBody = imageData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                failure(error)
+            } else if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+                    let tags = json["tags"] as! [[String: Any]]
+                    
+                    for tag in tags {
+                        if (tag["name"] as! String) == "cat" {
+                            success(true)
+                            return
+                        }
+                    }
+                    success(false)
+                } catch let error {
+                    failure(error)
+                }
+            }
+        }
+        
+        task.resume()
+    }
 }
 
 func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {

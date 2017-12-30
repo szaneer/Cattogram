@@ -50,15 +50,36 @@ class PostViewController: UITableViewController {
     
     @IBAction func onShare(_ sender: Any) {
         view.isUserInteractionEnabled = false
-        CattogramClient.sharedInstance.createPost(user: Auth.auth().currentUser!.uid, caption: captionView.text, image: postImageView.image, mapItem: mapItem, success: {
-            self.navigationController?.dismiss(animated: true, completion: nil)
-            self.view.isUserInteractionEnabled = true
-            CattogramClient.sharedInstance.lastSnapshot = nil
-            NotificationCenter.default.post(name: .cattoPosted, object: nil)
+        CattogramClient.sharedInstance.checkIfCatto(image: postImageView.image!, success: { (hasCatto) in
+            if hasCatto {
+                DispatchQueue.main.sync {
+                    CattogramClient.sharedInstance.createPost(user: Auth.auth().currentUser!.uid, caption: self.captionView.text, image: self.postImageView.image, mapItem: self.mapItem, success: {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                        self.view.isUserInteractionEnabled = true
+                        CattogramClient.sharedInstance.lastSnapshot = nil
+                        NotificationCenter.default.post(name: .cattoPosted, object: nil)
+                    }) { (error) in
+                        print(error.localizedDescription)
+                        self.view.isUserInteractionEnabled = true
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.view.isUserInteractionEnabled = true
+                }
+                let alertController = UIAlertController(title: "Hmmm", message: "Cattogram can't detect a catto in your picture, please try to take a better picture.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
         }) { (error) in
-            print(error.localizedDescription)
-            self.view.isUserInteractionEnabled = false
+            DispatchQueue.main.async {
+                self.view.isUserInteractionEnabled = true
+            }
+            let alertController = UIAlertController(title: "Error", message: "There was an issue while chceking for cattos please try again.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
+        
     }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
