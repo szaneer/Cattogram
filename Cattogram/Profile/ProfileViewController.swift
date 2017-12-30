@@ -70,6 +70,7 @@ class ProfileViewController: UITableViewController {
 
     func loadUserInfo() {
         if let uid = uid {
+            editProfileButton.setTitle("Follow", for: .normal)
             CattogramClient.sharedInstance.getUserInfo(uid: uid, success: { (user) in
                 self.navigationItem.title = user.username
                 self.nameLabel.text = user.name

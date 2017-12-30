@@ -17,6 +17,7 @@ class CattoCell: UITableViewCell {
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var bigLikeView: UIImageView!
     
     var isLiked = false
     var index: Int!
@@ -78,6 +79,11 @@ class CattoCell: UITableViewCell {
                 print(error.localizedDescription)
                 self.isUserInteractionEnabled = true
             }
+            
+            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(onDoubleTap(_:)))
+            doubleTap.numberOfTapsRequired = 2
+            
+            cattoView.addGestureRecognizer(doubleTap)
         }
     }
     
@@ -120,6 +126,46 @@ class CattoCell: UITableViewCell {
         }
         
     }
+    
+    @IBAction func onDoubleTap(_ sender: Any) {
+        isUserInteractionEnabled = false
+        if !isLiked {
+            bigLikeView.isHidden = false
+            CattogramClient.sharedInstance.likePost(post: post.uid, user: Auth.auth().currentUser!.uid, success: { (newCount) in
+                UIView.animate(withDuration: 0.3, delay: 0, options: .allowUserInteraction, animations: {() -> Void in
+                    self.bigLikeView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                    self.bigLikeView.alpha = 1.0
+                }, completion: {(_ finished: Bool) -> Void in
+                    UIView.animate(withDuration: 0.1, delay: 0, options: .allowUserInteraction, animations: {() -> Void in
+                        self.bigLikeView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    }, completion: {(_ finished: Bool) -> Void in
+                        UIView.animate(withDuration: 0.3, delay: 0, options: .allowUserInteraction, animations: {() -> Void in
+                            self.bigLikeView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                            self.bigLikeView.alpha = 0.0
+                        }, completion: {(_ finished: Bool) -> Void in
+                            self.bigLikeView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                            UIView.animate(withDuration: 0.1, delay: 0, options: .allowUserInteraction, animations: {() -> Void in
+                                self.likeButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                            }, completion: {(_ finished: Bool) -> Void in
+                                UIView.animate(withDuration: 0.1, delay: 0, options: .allowUserInteraction, animations: {() -> Void in
+                                    self.likeButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                                    self.likeButton.setImage(UIImage(named: "likeIconRed"), for: .normal)
+                                    self.isLiked = !self.isLiked
+                                    self.likeLabel.text = "\(newCount) likes"
+                                    self.isUserInteractionEnabled = true
+                                    self.bigLikeView.isHidden = true
+                                })
+                            })
+                        })
+                    })
+                })
+            }, failure: { (error) in
+                print(error.localizedDescription)
+                self.isUserInteractionEnabled = true
+            })
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
