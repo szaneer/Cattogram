@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 class ProfileViewController: UITableViewController {
 
@@ -23,12 +24,12 @@ class ProfileViewController: UITableViewController {
     let collectionController = ProfilePostsCollectionViewController()
     let tableController = ProfilePostsTableViewController()
     
+    var uid: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let background = UIImage(named: "background")!
-        navigationController?.navigationBar.setBackgroundImage(background, for: .default)
-        
+        infoLabel.isHidden = true
         editProfileButton.layer.borderColor = UIColor.black.cgColor
         editProfileButton.layer.cornerRadius = 5
         editProfileButton.layer.borderWidth = 0.5
@@ -51,38 +52,88 @@ class ProfileViewController: UITableViewController {
         userPostsTableView.estimatedRowHeight = 250
         userPostsTableView.rowHeight = UITableViewAutomaticDimension
         
+        if let uid = uid {
+            if uid == Auth.auth().currentUser!.uid {
+                self.uid = nil
+            }
+        }
+        
         loadUserInfo()
     }
 
     func loadUserInfo() {
-        CattogramClient.sharedInstance.getUserInfo(uid: Auth.auth().currentUser!.uid, success: { (user) in
-            self.nameLabel.text = user.name
-            self.postCountLabel.text = "\(user.postCount)"
+        if let uid = uid {
+            CattogramClient.sharedInstance.getUserInfo(uid: uid, success: { (user) in
+                self.navigationItem.title = user.username
+                self.nameLabel.text = user.name
+                self.postCountLabel.text = "\(user.postCount)"
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
             
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-        CattogramClient.sharedInstance.getUserImage(uid: Auth.auth().currentUser!.uid, success: { (image) in
-            if let image = image {
-                self.userImageView.image = image
+            CattogramClient.sharedInstance.getUserImage(uid: uid, success: { (image) in
+                if let image = image {
+                    self.userImageView.image = image
+                }
+            }) { (error) in
+                print(error.localizedDescription)
             }
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-        CattogramClient.sharedInstance.getUserPosts(uid: Auth.auth().currentUser!.uid, success: { (posts) in
-            self.collectionController.posts = posts
-            self.tableController.posts = posts
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.userPostsTableView.reloadData()
+            
+            CattogramClient.sharedInstance.getUserPosts(uid: uid, success: { (posts) in
+                self.collectionController.posts = posts
+                self.tableController.posts = posts
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.userPostsTableView.reloadData()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
             }
-        }) { (error) in
-            print(error.localizedDescription)
+        } else {
+            if Auth.auth().currentUser?.uid == nil {
+                return
+            }
+            CattogramClient.sharedInstance.getUserInfo(uid: Auth.auth().currentUser!.uid, success: { (user) in
+                self.navigationItem.title = user.username
+                self.nameLabel.text = user.name
+                self.postCountLabel.text = "\(user.postCount)"
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            CattogramClient.sharedInstance.getUserImage(uid: Auth.auth().currentUser!.uid, success: { (image) in
+                if let image = image {
+                    self.userImageView.image = image
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            CattogramClient.sharedInstance.getUserPosts(uid: Auth.auth().currentUser!.uid, success: { (posts) in
+                self.collectionController.posts = posts
+                self.tableController.posts = posts
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.userPostsTableView.reloadData()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
         }
     }
 
+    @IBAction func onLogout(_ sender: Any) {
+        
+        do {
+           try Auth.auth().signOut()
+        } catch let error {
+            
+        }
+        FBSDKLoginManager().logOut()
+        performSegue(withIdentifier: "logoutSegue", sender: nil)
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -184,7 +235,7 @@ class ProfilePostsTableViewController: NSObject, UITableViewDelegate, UITableVie
             headerView.locationButton.setTitle("\(locationName) >", for: .normal)
         } else {
             headerView = views?[1] as! CattoHeaderView
-            headerView.nameLabel.frame.offsetBy(dx: 0, dy: 30)
+            //headerView.nameLabel.frame.offsetBy(dx: 0, dy: 30)
         }
         
         

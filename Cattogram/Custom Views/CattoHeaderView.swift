@@ -11,7 +11,7 @@ import UIKit
 class CattoHeaderView: UIView {
 
     @IBOutlet weak var profileView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameButton: UIButton!
     @IBOutlet weak var locationButton: UIButton!
     
     var post: Post! {
@@ -30,7 +30,7 @@ class CattoHeaderView: UIView {
                 print(error.localizedDescription)
             }
             
-            nameLabel.text = post.name
+            nameButton.setTitle(post.name, for: .normal)
         }
     }
 }

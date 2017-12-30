@@ -16,6 +16,7 @@ class RegisterCreateViewController: UIViewController {
     var username: String?
     var name: String?
     var password: String?
+    var facebookData: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +35,48 @@ class RegisterCreateViewController: UIViewController {
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         
-        CattogramClient.sharedInstance.registerUser(name: name, username: username, email: email, password: password, image: nil, success: {
-            self.performSegue(withIdentifier: "registerCompleteSegue", sender: nil)
-        }) { (error) in
-            print(error.localizedDescription)
+        if let facebookData = facebookData {
+            let picture = facebookData["picture"] as! [String: Any]
+            let data = picture["data"] as! [String: Any]
+            let pictureURL = URL(string: data["url"] as! String)!
+            let pictureSession = URLSession(configuration: .default)
+            pictureSession.dataTask(with: pictureURL) { (data, response, error) in
+                if let error = error {
+                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                        self.performSegue(withIdentifier: "registerErrorSegue", sender: error)
+                    }))
+                    
+                    self.present(alert, animated: true, completion: nil)
+                } else if let data = data {
+                    let image = UIImage(data: data)!
+                    CattogramClient.sharedInstance.registerUserWithFacebook(uid: facebookData["uid"] as! String, name: self.name, username: self.username, email: self.email, image: image, success: {
+                        self.performSegue(withIdentifier: "facebookDoneSegue", sender: nil)
+                    }, failure: { (error) in
+                        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                            self.performSegue(withIdentifier: "registerErrorSegue", sender: error)
+                        }))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    })
+                }
+                
+            }.resume()
             
-            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
-                self.performSegue(withIdentifier: "registerErrorSegue", sender: error)
-            }))
-            
-            self.present(alert, animated: true, completion: nil)
+        } else {
+            CattogramClient.sharedInstance.registerUser(name: name, username: username, email: email, password: password, image: nil, success: {
+                self.performSegue(withIdentifier: "registerCompleteSegue", sender: nil)
+            }) { (error) in
+                print(error.localizedDescription)
+                
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    self.performSegue(withIdentifier: "registerErrorSegue", sender: error)
+                }))
+                
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     

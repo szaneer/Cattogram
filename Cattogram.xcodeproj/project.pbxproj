@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B3301A809B13E238E024CE45 /* Pods_Cattogram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */; };
+		C71A0D861FF5BBC10025329C /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A0D851FF5BBC10025329C /* CommentsViewController.swift */; };
+		C71A0D881FF5CA500025329C /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C71A0D871FF5CA500025329C /* CommentView.xib */; };
+		C71A0D8A1FF5CDCC0025329C /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A0D891FF5CDCC0025329C /* CommentView.swift */; };
 		C7246A401FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */; };
 		C7246A421FE4BF250037D345 /* RegisterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A411FE4BF250037D345 /* RegisterEmailViewController.swift */; };
 		C7246A441FE4C7520037D345 /* ModalFromLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7246A431FE4C7520037D345 /* ModalFromLeftSegue.swift */; };
@@ -43,6 +46,8 @@
 		C78960851FDDF3A10012B71C /* CattoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C78960841FDDF3A10012B71C /* CattoHeaderView.xib */; };
 		C78960871FDDF4D30012B71C /* CattoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960861FDDF4D30012B71C /* CattoHeaderView.swift */; };
 		C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */; };
+		C7DF93101FF6062400B458CE /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DF930F1FF6062400B458CE /* CommentCell.swift */; };
+		C7DF93121FF6084E00B458CE /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DF93111FF6084E00B458CE /* Comment.swift */; };
 		C7EFA9881FDE3B2500503BC3 /* CattoFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7EFA9871FDE3B2500503BC3 /* CattoFooterView.xib */; };
 		C7EFA98A1FDE3B4200503BC3 /* CattoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA9891FDE3B4200503BC3 /* CattoFooterView.swift */; };
 		C7EFA98C1FDE414200503BC3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA98B1FDE414200503BC3 /* ProfileViewController.swift */; };
@@ -66,6 +71,9 @@
 		4C5DD2BE7FA0BC8DCE294C29 /* Pods-Cattogram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cattogram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram.release.xcconfig"; sourceTree = "<group>"; };
 		5094C0DF965F8BBBC0355912 /* Pods_Cattogram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cattogram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8540606215F994AE6146BDE6 /* Pods-Cattogram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cattogram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cattogram/Pods-Cattogram.debug.xcconfig"; sourceTree = "<group>"; };
+		C71A0D851FF5BBC10025329C /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		C71A0D871FF5CA500025329C /* CommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
+		C71A0D891FF5CDCC0025329C /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		C7246A3F1FE4A4A20037D345 /* ModalFromRightUnwindSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromRightUnwindSegue.swift; sourceTree = "<group>"; };
 		C7246A411FE4BF250037D345 /* RegisterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailViewController.swift; sourceTree = "<group>"; };
 		C7246A431FE4C7520037D345 /* ModalFromLeftSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFromLeftSegue.swift; sourceTree = "<group>"; };
@@ -103,6 +111,8 @@
 		C78960841FDDF3A10012B71C /* CattoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CattoHeaderView.xib; sourceTree = "<group>"; };
 		C78960861FDDF4D30012B71C /* CattoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoHeaderView.swift; sourceTree = "<group>"; };
 		C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
+		C7DF930F1FF6062400B458CE /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		C7DF93111FF6084E00B458CE /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		C7EFA9871FDE3B2500503BC3 /* CattoFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CattoFooterView.xib; sourceTree = "<group>"; };
 		C7EFA9891FDE3B4200503BC3 /* CattoFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattoFooterView.swift; sourceTree = "<group>"; };
 		C7EFA98B1FDE414200503BC3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +153,8 @@
 			children = (
 				C73C01921FE1092400D5B989 /* Cattos.storyboard */,
 				C78960741FDBC3650012B71C /* CattosViewController.swift */,
+				C71A0D851FF5BBC10025329C /* CommentsViewController.swift */,
+				C7DF930F1FF6062400B458CE /* CommentCell.swift */,
 			);
 			path = Cattos;
 			sourceTree = "<group>";
@@ -152,6 +164,7 @@
 			children = (
 				C7EFA98D1FDE418600503BC3 /* CattoUser.swift */,
 				C78960821FDDCDA60012B71C /* Post.swift */,
+				C7DF93111FF6084E00B458CE /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -204,6 +217,8 @@
 				C7EFA9891FDE3B4200503BC3 /* CattoFooterView.swift */,
 				C78960881FDE11610012B71C /* InfiniteScrollActivityView.swift */,
 				C7435A071FE3A131005ECB6D /* GradientView.swift */,
+				C71A0D871FF5CA500025329C /* CommentView.xib */,
+				C71A0D891FF5CDCC0025329C /* CommentView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -324,6 +339,7 @@
 				C77327551FDBA6BE00215DC9 /* Assets.xcassets in Resources */,
 				C73C01911FE1089B00D5B989 /* Posting.storyboard in Resources */,
 				C73C01931FE1092400D5B989 /* Cattos.storyboard in Resources */,
+				C71A0D881FF5CA500025329C /* CommentView.xib in Resources */,
 				C77327531FDBA6BE00215DC9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +394,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RSKPlaceholderTextView/RSKPlaceholderTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -394,6 +411,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSKPlaceholderTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -431,13 +449,17 @@
 				C789607D1FDC7CB50012B71C /* CreateCell.swift in Sources */,
 				C7EFA98A1FDE3B4200503BC3 /* CattoFooterView.swift in Sources */,
 				C78960891FDE11610012B71C /* InfiniteScrollActivityView.swift in Sources */,
+				C71A0D8A1FF5CDCC0025329C /* CommentView.swift in Sources */,
 				C77327621FDBAD3F00215DC9 /* LoginViewController.swift in Sources */,
+				C71A0D861FF5BBC10025329C /* CommentsViewController.swift in Sources */,
 				C78960771FDBC9110012B71C /* CattoCell.swift in Sources */,
 				C73CB4E01FEE3A8E00CB2BB6 /* PostingTabBarController.swift in Sources */,
 				C7246A4E1FEDF85E0037D345 /* RegisterCreateViewController.swift in Sources */,
 				C7246A441FE4C7520037D345 /* ModalFromLeftSegue.swift in Sources */,
 				C78960811FDCF19E0012B71C /* PostLocationSearchViewController.swift in Sources */,
 				C773274E1FDBA6BE00215DC9 /* AppDelegate.swift in Sources */,
+				C7DF93121FF6084E00B458CE /* Comment.swift in Sources */,
+				C7DF93101FF6062400B458CE /* CommentCell.swift in Sources */,
 				C78960711FDBBA930012B71C /* RegisterViewController.swift in Sources */,
 				C7EFA98E1FDE418600503BC3 /* CattoUser.swift in Sources */,
 				C7246A421FE4BF250037D345 /* RegisterEmailViewController.swift in Sources */,

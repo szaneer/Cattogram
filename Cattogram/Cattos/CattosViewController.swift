@@ -14,10 +14,22 @@ class CattosViewController: UITableViewController {
     var isMoreDataLoading = false
     var loadingMoreView: InfiniteScrollActivityView?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        let title = UILabel()
+        title.font = UIFont(name: "Billabong", size: 30)
+        title.text = "Cattogram"
+        self.navigationController?.navigationBar.topItem?.titleView = title
+        //self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "Billabong", size: 30)!]
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController!.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont(name: "Billabong", size: 30)!]
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 250
         
@@ -32,6 +44,7 @@ class CattosViewController: UITableViewController {
         insets.bottom += InfiniteScrollActivityView.defaultHeight
         tableView.contentInset = insets
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadPosts), name: .cattoPosted, object: nil)
         
         loadPosts()
     }
@@ -45,6 +58,10 @@ class CattosViewController: UITableViewController {
         
         if refreshControl!.isRefreshing {
             CattogramClient.sharedInstance.lastSnapshot = nil
+        }
+        
+        if CattogramClient.sharedInstance.lastSnapshot == nil {
+            posts = []
         }
         
         CattogramClient.sharedInstance.getPosts(success: { (posts) in
@@ -77,13 +94,24 @@ class CattosViewController: UITableViewController {
         }
     }
     
+    @objc func goToProfile(sender: Any) {
+        let header = (sender as! UIView).superview as! CattoHeaderView
+        
+        performSegue(withIdentifier: "profileSegue", sender: header.post.owner)
+    }
+    
+    @objc func goToComments(sender: Any) {
+        let cell = (sender as! UIButton).superview!.superview as! CattoCell
+        
+        performSegue(withIdentifier: "commentSegue", sender: cell.post)
+    }
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (!isMoreDataLoading) {
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
-                print("wew")
                 let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
@@ -119,12 +147,12 @@ class CattosViewController: UITableViewController {
             headerView.locationButton.setTitle("\(locationName) >", for: .normal)
         } else {
             headerView = views?[1] as! CattoHeaderView
-            headerView.nameLabel.frame.offsetBy(dx: 0, dy: 30)
+            
         }
-        
         
         headerView.post = post
         
+        headerView.nameButton.addTarget(self, action: #selector(goToProfile(sender:)), for: .touchUpInside)
         return headerView
     }
     
@@ -136,7 +164,26 @@ class CattosViewController: UITableViewController {
         cell.tag = indexPath.section
         cell.index = indexPath.section
         cell.post = post
+        cell.commentButton.addTarget(self, action: #selector(goToComments(sender:)), for: .touchUpInside)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let id = segue.identifier else {
+            return
+        }
+        
+        switch id {
+        case "profileSegue":
+            let destination = segue.destination as! ProfileViewController
+            destination.uid = sender as? String
+        case "commentSegue":
+            let destination = segue.destination as! CommentsViewController
+            destination.post = sender as! Post
+        default:
+            return
+        }
     }
 }

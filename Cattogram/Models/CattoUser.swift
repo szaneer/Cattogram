@@ -14,11 +14,13 @@ class CattoUser {
     var postCount: Int
     var uid: String
     var name: String
+    var username: String
     
     init(userData: [String: Any]) {
         email = userData["email"] as! String
         postCount = userData["postCount"] as! Int
         uid = userData["uid"] as! String
         name = userData["name"] as! String
+        username = userData["username"] as! String
     }
 }

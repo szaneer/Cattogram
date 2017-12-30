@@ -15,11 +15,26 @@ class RegisterEmailViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loginButtonConstraint: NSLayoutConstraint!
+    
+    var facebookData: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loginButton.layer.cornerRadius = 5
+        
+        if let facebookData = facebookData {
+            print(facebookData)
+            passwordField.isHidden = true
+            
+            loginButton.removeConstraint(loginButtonConstraint)
+            loginButton.frame = nameField.bounds
+            
+            passwordField.text = "FB"
+            emailField.text = facebookData["email"] as? String
+            nameField.text = facebookData["name"] as? String
+        }
     }
     
     @IBAction func onTextChange(_ sender: Any) {
@@ -28,7 +43,7 @@ class RegisterEmailViewController: UIViewController {
         emailField.textColor = .black
         passwordField.textColor = .black
         
-        if emailField.text!.count > 0 && passwordField.text!.count > 0 && nameField.text!.count > 0 && usernameField.text!.count > 0{
+        if emailField.text!.count > 0 && passwordField.text!.count > 0 && nameField.text!.count > 0 && usernameField.text!.count > 0 {
             loginButton.backgroundColor = #colorLiteral(red: 0.3254901961, green: 0.5882352941, blue: 0.9215686275, alpha: 1)
             loginButton.isEnabled = true
         } else {
@@ -58,6 +73,10 @@ class RegisterEmailViewController: UIViewController {
             destination.username = usernameField.text
             destination.name = nameField.text
             destination.password = passwordField.text
+            
+            if facebookData != nil {
+                destination.facebookData = facebookData
+            }
         default:
             break
         }

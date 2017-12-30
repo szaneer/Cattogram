@@ -23,6 +23,10 @@ class LoginViewController: UIViewController {
     var gradientColors: [(first: UIColor, second: UIColor)] = []
     var currGradient = 0
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         //5396EB
@@ -31,6 +35,7 @@ class LoginViewController: UIViewController {
         loginButton.layer.cornerRadius = 5
         
         fbLoginButton.delegate = self
+        fbLoginButton.readPermissions = ["email", "public_profile"]
         
         let background = UIImage(named: "background")!
         navigationController?.navigationBar.setBackgroundImage(background, for: .default)
@@ -85,6 +90,23 @@ class LoginViewController: UIViewController {
     @IBAction func onTap(_ sender: Any) {
         view.endEditing(true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        guard let id = segue.identifier else {
+            return
+        }
+        
+        switch id {
+        case "facebookRegisterSegue":
+            let destination = segue.destination as! RegisterEmailViewController
+            
+            destination.facebookData = sender as! [String: Any]
+        default:
+            return
+        }
+    }
 }
 
 extension LoginViewController: FBSDKLoginButtonDelegate {
@@ -104,7 +126,9 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
             if exists {
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             } else {
-                
+                var userData = userData
+                userData["uid"] = user.uid
+                self.performSegue(withIdentifier: "facebookRegisterSegue", sender: userData)
             }
         }) { (error) in
             print(error.localizedDescription)

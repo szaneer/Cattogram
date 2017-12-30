@@ -160,7 +160,7 @@ class CattogramClient {
                     if let error = error {
                         failure(error)
                     } else if let user = user {
-                        self.db.collection("users").document(user.uid).getDocument(completion: { (userDoc, error) in
+                        self.userCollection.document(user.uid).getDocument(completion: { (userDoc, error) in
                             if let error = error {
                                 failure(error)
                             } else if userDoc!.exists {
@@ -177,11 +177,77 @@ class CattogramClient {
         
     }
     
-    func registerFacebookUser(uid: String, userData: [String: Any], userImage: UIImage?, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func registerUserWithFacebook(uid: String, name: String?, username: String?, email: String?, image: UIImage?, success: @escaping () -> (), failure: @escaping (RegisterError) -> ()) {
+        guard let name = name, !name.isEmpty  else {
+            failure(RegisterError.emptyInput)
+            return
+        }
         
-    }
-    
-    func getUserInfo() {
+        guard let username = username, !username.isEmpty else {
+            failure(RegisterError.emptyInput)
+            return
+        }
+        
+        guard let email = email, !email.isEmpty  else {
+            failure(RegisterError.emptyInput)
+            return
+        }
+        
+        if !email.isValidEmail() {
+            failure(RegisterError.invalidEmail)
+            return
+        }
+        
+        checkUsername(username: username, success: { (exists) in
+            if exists {
+                failure(RegisterError.usernameTaken)
+            } else {
+                let userData = ["uid": uid, "name": name, "username": username, "email": email, "postCount": 0] as [String : Any]
+                        
+                let userDocument = self.userCollection.document(uid)
+                let userImageDocument = self.userImagesCollection.document(uid)
+                
+                self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+                    transaction.setData(userData, forDocument: userDocument)
+                    
+                    if let image = image {
+                        let imageString = base64EncodeImage(image)
+                        transaction.setData(["image": imageString], forDocument: userImageDocument)
+                    } else {
+                        transaction.setData([:], forDocument: userImageDocument)
+                    }
+                    
+                    return nil
+                }, completion: { (_, error) in
+                    if error != nil {
+                        failure(RegisterError.generic)
+                    } else {
+                        success()
+                    }
+                })
+                
+            }
+        }) { (error) in
+            failure(RegisterError.generic)
+        }
+        
+        checkUsername(username: username, success: { (exists) in
+            if exists {
+                failure(RegisterError.usernameTaken)
+            } else {
+                let userData = ["uid": uid, "name": name, "username": username, "email": email, "postCount": 0] as [String : Any]
+                
+                self.userCollection.document(uid).setData(userData, completion: { (error) in
+                    if error != nil {
+                        failure(RegisterError.generic)
+                    } else {
+                        success()
+                    }
+                })
+            }
+        }) { (error) in
+            failure(RegisterError.generic)
+        }
         
     }
     
@@ -355,6 +421,46 @@ class CattogramClient {
         }
     }
     
+    func postComment(post: String, user: String, comment: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        var commentData = ["owner": user, "comment": comment, "timestamp": Double(Date().timeIntervalSince1970)] as [String : Any]
+        
+        let postCommentsDocument = self.postComments.document(post)
+        
+        getUserInfo(uid: user, success: { (user) in
+            commentData["name"] = user.name
+            
+            postCommentsDocument.collection("comments").document().setData(commentData, completion: { (error) in
+                if let error = error {
+                    failure(error)
+                } else {
+                    success()
+                }
+            })
+        }) { (error) in
+            failure(error)
+        }
+    }
+    
+    func getPostComments(post: String, success: @escaping ([Comment]) -> (), failure: @escaping (Error) -> ()) {
+        
+        self.postComments.document(post).collection("comments").order(by: "timestamp", descending: false).getDocuments { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                let documents = snapshot.documents
+                
+                var comments: [Comment] = []
+                
+                for document in documents {
+                    let commentData = document.data()
+                    
+                    comments.append(Comment(commentData: commentData))
+                }
+                
+                success(comments)
+            }
+        }
+    }
     func getUserPosts(uid: String, success: @escaping ([Post]) -> (), failure: @escaping (PostError) -> ()) {
         let postQuery = postCollection.whereField("owner", isEqualTo: uid)
         
@@ -421,6 +527,8 @@ class CattogramClient {
             }
         }
     }
+    
+    func checkIfCatto
 }
 
 func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
@@ -529,4 +637,8 @@ enum PostError: Error {
     case data
     case retrieval
     case image
+}
+
+extension Notification.Name {
+    static let cattoPosted = Notification.Name("cattoPosted")
 }

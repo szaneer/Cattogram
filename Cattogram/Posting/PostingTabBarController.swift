@@ -10,17 +10,32 @@ import UIKit
 
 class PostingTabBarController: UITabBarController {
 
+    @IBOutlet weak var nextButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     @IBAction func onCancel(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-
+    @IBAction func onNext(_ sender: Any) {
+        let photoSelectController = self.viewControllers![0] as! CreateViewController
+        
+        photoSelectController.performSegue(withIdentifier: "postSegue", sender: nil)
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.title == "Photo" {
+            nextButton.isHidden = true
+        } else {
+            nextButton.isHidden = false
+        }
+    }
     /*
     // MARK: - Navigation
 

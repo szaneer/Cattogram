@@ -24,8 +24,11 @@ class CreateViewController: UIViewController {
         navigationController?.navigationBar.topItem?.title = "All Photos"
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         let appearance = UITabBarItem.appearance()
         let attributes = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20)]

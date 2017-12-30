@@ -13,16 +13,30 @@ class CattoCell: UITableViewCell {
 
     @IBOutlet weak var cattoView: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     var isLiked = false
     var index: Int!
+    
     var post: Post! {
         didSet {
             isUserInteractionEnabled = false
             
             likeLabel.text = "\(post.likeCount) likes"
+            
+            let currTime = Date().timeIntervalSince1970
+            let diff = currTime - post.timeStamp
+            
+            if diff < 60 {
+                timeLabel.text = "JUST NOW"
+            } else if diff < 3600 {
+                timeLabel.text = "\(Int(diff / 60)) MINUTES AGO"
+            } else { // if diff < 86400 {
+                timeLabel.text = "\(Int(diff / 3600)) HOURS AGO"
+            } 
             
             if var caption = post.caption {
                 caption = post.name + " " + caption
@@ -31,7 +45,7 @@ class CattoCell: UITableViewCell {
                 
                 let boldFontAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14.0, weight: .medium)]
                 
-                let nameRange = (caption as! NSString).range(of: post.name)
+                let nameRange = (caption as NSString).range(of: post.name)
                 
                 
                 attributedString.addAttributes(boldFontAttribute, range: nameRange)
@@ -78,6 +92,7 @@ class CattoCell: UITableViewCell {
                         self.likeButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                         self.likeButton.setImage(UIImage(named: "likeIconRed"), for: .normal)
                         self.isLiked = !self.isLiked
+                        self.likeLabel.text = "\(newCount) likes"
                         self.isUserInteractionEnabled = true
                     })
                 })
@@ -94,6 +109,7 @@ class CattoCell: UITableViewCell {
                         self.likeButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                         self.likeButton.setImage(UIImage(named: "likeIcon"), for: .normal)
                         self.isLiked = !self.isLiked
+                        self.likeLabel.text = "\(newCount) likes"
                         self.isUserInteractionEnabled = true
                     })
                 })

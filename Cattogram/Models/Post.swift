@@ -16,6 +16,7 @@ class Post {
     var longitude: Double?
     var latitude: Double?
     var name: String
+    var timeStamp: Double
     
     init(postData: [String: Any]) {
         if let caption = postData["caption"] as? String {
@@ -26,6 +27,7 @@ class Post {
         likeCount = postData["likeCount"] as! Int
         uid = postData["uid"] as! String
         name = postData["name"] as! String
+        timeStamp = postData["timestamp"] as! Double
         
         if let location = postData["location"] as? [String: Any] {
             locationName = location["name"] as? String

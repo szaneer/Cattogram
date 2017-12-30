@@ -4,10 +4,11 @@
 target 'Cattogram' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  # Pods for Cattogram
   pod 'Firebase'
   pod 'Firebase/Firestore'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
-  # Pods for Cattogram
+  pod 'RSKPlaceholderTextView'
 
 end
