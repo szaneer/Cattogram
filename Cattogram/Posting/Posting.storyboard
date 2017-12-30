@@ -236,6 +236,7 @@
                         <outlet property="locationCell" destination="8Jb-Nw-Zka" id="7SR-Nk-sGl"/>
                         <outlet property="postImageView" destination="hiD-ag-sCB" id="0Fz-ar-HpI"/>
                         <outlet property="profileView" destination="L23-zX-SRb" id="Fb6-2x-kxc"/>
+                        <outlet property="shareButton" destination="vrZ-eA-l5o" id="5ch-GS-aDz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="03Z-fE-UQ4" userLabel="First Responder" sceneMemberID="firstResponder"/>

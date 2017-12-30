@@ -26,9 +26,23 @@ class ProfileViewController: UITableViewController {
     
     var uid: String?
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let uid = uid {
+            if uid == Auth.auth().currentUser!.uid {
+                self.uid = nil
+            }
+        }
+        
+        loadUserInfo()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         infoLabel.isHidden = true
         editProfileButton.layer.borderColor = UIColor.black.cgColor
         editProfileButton.layer.cornerRadius = 5
@@ -51,14 +65,7 @@ class ProfileViewController: UITableViewController {
         userPostsTableView.dataSource = tableController
         userPostsTableView.estimatedRowHeight = 250
         userPostsTableView.rowHeight = UITableViewAutomaticDimension
-        
-        if let uid = uid {
-            if uid == Auth.auth().currentUser!.uid {
-                self.uid = nil
-            }
-        }
-        
-        loadUserInfo()
+        tableController.mainViewController = self
     }
 
     func loadUserInfo() {
@@ -124,6 +131,18 @@ class ProfileViewController: UITableViewController {
         }
     }
 
+    @objc func goToProfile(sender: Any) {
+        let header = (sender as! UIView).superview as! CattoHeaderView
+        
+        performSegue(withIdentifier: "profileSegue", sender: header.post.owner)
+    }
+    
+    @objc func goToComments(sender: Any) {
+        let cell = (sender as! UIButton).superview!.superview as! CattoCell
+        
+        performSegue(withIdentifier: "commentSegue", sender: cell.post)
+    }
+    
     @IBAction func onLogout(_ sender: Any) {
         
         do {
@@ -136,6 +155,22 @@ class ProfileViewController: UITableViewController {
     }
     // MARK: - Table view data source
 
+    @objc func deletePost(sender: Any) {
+        let header = (sender as! UIButton).superview as! CattoHeaderView
+        let post = header.post
+        
+        let alertController = UIAlertController(title: "Delete Catto", message: "Are you sure you want to delete this catto?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            CattogramClient.sharedInstance.deletePost(post: post!, success: {
+                self.loadUserInfo()
+            }, failure: { (error) in
+                print(error.localizedDescription)
+            })
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -146,11 +181,27 @@ class ProfileViewController: UITableViewController {
         return 3
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let id = segue.identifier else {
+            return
+        }
+        
+        switch id {
+        case "profileSegue":
+            let destination = segue.destination as! ProfileViewController
+            destination.uid = sender as? String
+        case "commentSegue":
+            let destination = segue.destination as! CommentsViewController
+            destination.post = sender as! Post
+        default:
+            return
+        }
+    }
 }
 
 extension ProfileViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("Heloo")
         if item == switchBar.items?[0] {
             userPostsTableView.isHidden = true
             collectionView.isHidden = false
@@ -198,6 +249,7 @@ class ProfilePostsCollectionViewController: NSObject, UICollectionViewDelegate, 
 class ProfilePostsTableViewController: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     var posts: [Post] = []
+    weak var mainViewController: ProfileViewController!
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return posts.count
@@ -216,6 +268,7 @@ class ProfilePostsTableViewController: NSObject, UITableViewDelegate, UITableVie
         cell.index = indexPath.section
         cell.post = post
         
+        cell.commentButton.addTarget(mainViewController, action: #selector(mainViewController.goToComments(sender:)), for: .touchUpInside)
         
         return cell
     }
@@ -241,6 +294,9 @@ class ProfilePostsTableViewController: NSObject, UITableViewDelegate, UITableVie
         
         headerView.post = post
         
+        headerView.nameButton.addTarget(mainViewController, action: #selector(mainViewController.goToProfile(sender:)), for: .touchUpInside)
+        
+        headerView.editButton.addTarget(mainViewController, action: #selector(mainViewController.deletePost(sender:)), for: .touchUpInside)
         
         return headerView
     }

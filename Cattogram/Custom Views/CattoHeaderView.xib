@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +25,7 @@
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqK-Uz-8x8">
-                    <rect key="frame" x="48" y="25" width="264" height="15"/>
+                    <rect key="frame" x="48" y="25" width="232" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="CX8-j7-fzp"/>
                     </constraints>
@@ -34,7 +35,7 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djW-3a-xyC">
-                    <rect key="frame" x="48" y="10" width="264" height="16"/>
+                    <rect key="frame" x="48" y="10" width="232" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="Fbk-Hm-GEG"/>
                     </constraints>
@@ -43,15 +44,25 @@
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdV-u1-7dN">
+                    <rect key="frame" x="290" y="15" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="kkw-hQ-Hhn"/>
+                        <constraint firstAttribute="width" secondItem="bdV-u1-7dN" secondAttribute="height" multiplier="1:1" id="yKz-hO-Z7M"/>
+                    </constraints>
+                    <state key="normal" image="dotIcon"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xqK-Uz-8x8" secondAttribute="trailing" constant="8" id="9Ia-s0-LvB"/>
+                <constraint firstItem="bdV-u1-7dN" firstAttribute="leading" secondItem="xqK-Uz-8x8" secondAttribute="trailing" constant="10" id="61T-Ap-Jgs"/>
+                <constraint firstItem="bdV-u1-7dN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="6hf-JZ-bJh"/>
                 <constraint firstItem="djW-3a-xyC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Aw1-Ch-tC3"/>
                 <constraint firstItem="F7P-Ou-9cQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="HqE-Xf-VIb"/>
                 <constraint firstItem="djW-3a-xyC" firstAttribute="leading" secondItem="F7P-Ou-9cQ" secondAttribute="trailing" constant="8" id="S9v-Qy-TPh"/>
                 <constraint firstItem="xqK-Uz-8x8" firstAttribute="leading" secondItem="F7P-Ou-9cQ" secondAttribute="trailing" constant="8" id="Tiu-SJ-0DC"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="djW-3a-xyC" secondAttribute="trailing" constant="8" id="Y9y-HJ-jmq"/>
+                <constraint firstItem="bdV-u1-7dN" firstAttribute="leading" secondItem="djW-3a-xyC" secondAttribute="trailing" constant="10" id="a6o-jF-zUM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bdV-u1-7dN" secondAttribute="trailing" constant="10" id="eaz-NU-ArK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="xqK-Uz-8x8" secondAttribute="bottom" constant="10" id="ffK-lp-wiL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="F7P-Ou-9cQ" secondAttribute="bottom" constant="10" id="kzW-gf-xLm"/>
                 <constraint firstItem="F7P-Ou-9cQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="tkg-4b-jOw"/>
@@ -59,53 +70,66 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="editButton" destination="bdV-u1-7dN" id="J7y-5a-Hhi"/>
                 <outlet property="locationButton" destination="xqK-Uz-8x8" id="gmz-Mr-5Ui"/>
                 <outlet property="nameButton" destination="djW-3a-xyC" id="XsK-V9-2TX"/>
                 <outlet property="profileView" destination="F7P-Ou-9cQ" id="WVM-is-AIJ"/>
             </connections>
             <point key="canvasLocation" x="64" y="28"/>
         </view>
-        <view contentMode="scaleToFill" id="Z4P-qT-pEb" customClass="CattoHeaderView" customModule="Cattogram" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="lYx-tJ-OcI" customClass="CattoHeaderView" customModule="Cattogram" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="L1J-O6-HG1">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="quo-S4-6Wn">
                     <rect key="frame" x="10" y="10" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="30" id="cUW-Md-5gC"/>
-                        <constraint firstAttribute="height" constant="30" id="cX0-XT-U3x"/>
+                        <constraint firstAttribute="width" constant="30" id="HPX-IV-OcG"/>
+                        <constraint firstAttribute="height" constant="30" id="LfL-Rp-KhM"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Git-TO-OzS">
-                    <rect key="frame" x="48" y="17" width="264" height="16"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M92-Vz-j1M">
+                    <rect key="frame" x="48" y="17" width="232" height="16"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="16" id="nSi-ix-2pW"/>
+                        <constraint firstAttribute="height" constant="16" id="dHc-sn-U7G"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                     <state key="normal" title="sirajz007">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5k-h3-fsn">
+                    <rect key="frame" x="290" y="15" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="Ycg-fc-gUl"/>
+                        <constraint firstAttribute="width" secondItem="W5k-h3-fsn" secondAttribute="height" multiplier="1:1" id="uXI-a0-QuY"/>
+                    </constraints>
+                    <state key="normal" image="dotIcon"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="L1J-O6-HG1" firstAttribute="leading" secondItem="wL1-sy-fMr" secondAttribute="leading" constant="10" id="2WR-5M-E37"/>
-                <constraint firstItem="Git-TO-OzS" firstAttribute="centerY" secondItem="Z4P-qT-pEb" secondAttribute="centerY" id="JQ1-Ym-pdk"/>
-                <constraint firstItem="wL1-sy-fMr" firstAttribute="trailing" secondItem="Git-TO-OzS" secondAttribute="trailing" constant="8" id="KW8-dy-KqE"/>
-                <constraint firstItem="L1J-O6-HG1" firstAttribute="top" secondItem="wL1-sy-fMr" secondAttribute="top" constant="10" id="WBB-fu-69n"/>
-                <constraint firstItem="wL1-sy-fMr" firstAttribute="bottom" secondItem="L1J-O6-HG1" secondAttribute="bottom" constant="10" id="WQ6-LW-zzt"/>
-                <constraint firstItem="Git-TO-OzS" firstAttribute="leading" secondItem="L1J-O6-HG1" secondAttribute="trailing" constant="8" id="iYZ-5b-K3f"/>
+                <constraint firstItem="M92-Vz-j1M" firstAttribute="centerY" secondItem="lYx-tJ-OcI" secondAttribute="centerY" id="0eL-jF-QWq"/>
+                <constraint firstItem="W5k-h3-fsn" firstAttribute="centerY" secondItem="lYx-tJ-OcI" secondAttribute="centerY" id="F6s-6i-c7C"/>
+                <constraint firstItem="M92-Vz-j1M" firstAttribute="leading" secondItem="quo-S4-6Wn" secondAttribute="trailing" constant="8" id="Lwh-bU-QZK"/>
+                <constraint firstItem="bao-lq-ndi" firstAttribute="bottom" secondItem="quo-S4-6Wn" secondAttribute="bottom" constant="10" id="N6Q-pj-A1W"/>
+                <constraint firstItem="quo-S4-6Wn" firstAttribute="leading" secondItem="bao-lq-ndi" secondAttribute="leading" constant="10" id="bOu-HX-93a"/>
+                <constraint firstItem="bao-lq-ndi" firstAttribute="trailing" secondItem="W5k-h3-fsn" secondAttribute="trailing" constant="10" id="dI7-Gh-r4p"/>
+                <constraint firstItem="W5k-h3-fsn" firstAttribute="leading" secondItem="M92-Vz-j1M" secondAttribute="trailing" constant="10" id="tVa-V8-Lkf"/>
+                <constraint firstItem="quo-S4-6Wn" firstAttribute="top" secondItem="bao-lq-ndi" secondAttribute="top" constant="10" id="tiN-qw-upj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="wL1-sy-fMr"/>
+            <viewLayoutGuide key="safeArea" id="bao-lq-ndi"/>
             <connections>
-                <outlet property="nameButton" destination="Git-TO-OzS" id="15I-4q-t6v"/>
-                <outlet property="profileView" destination="L1J-O6-HG1" id="wZu-HK-f20"/>
+                <outlet property="editButton" destination="W5k-h3-fsn" id="XJk-wa-ecJ"/>
+                <outlet property="nameButton" destination="M92-Vz-j1M" id="QCy-0k-5ex"/>
+                <outlet property="profileView" destination="quo-S4-6Wn" id="e86-hR-hPF"/>
             </connections>
-            <point key="canvasLocation" x="64" y="135"/>
+            <point key="canvasLocation" x="64" y="140"/>
         </view>
     </objects>
     <resources>
+        <image name="dotIcon" width="1200" height="1200"/>
         <image name="image_placeholder" width="375" height="375"/>
     </resources>
 </document>

@@ -21,6 +21,7 @@ class PostViewController: UITableViewController {
     @IBOutlet weak var captionView: RSKPlaceholderTextView!
     @IBOutlet weak var locationCell: UITableViewCell!
     @IBOutlet weak var profileView: UIImageView!
+    @IBOutlet weak var shareButton: UIButton!
     
     var image: UIImage!
     var mapItem: MKMapItem?
@@ -49,6 +50,7 @@ class PostViewController: UITableViewController {
     }
     
     @IBAction func onShare(_ sender: Any) {
+        shareButton.isEnabled = false
         view.isUserInteractionEnabled = false
         CattogramClient.sharedInstance.checkIfCatto(image: postImageView.image!, success: { (hasCatto) in
             if hasCatto {
@@ -56,6 +58,7 @@ class PostViewController: UITableViewController {
                     CattogramClient.sharedInstance.createPost(user: Auth.auth().currentUser!.uid, caption: self.captionView.text, image: self.postImageView.image, mapItem: self.mapItem, success: {
                         self.navigationController?.dismiss(animated: true, completion: nil)
                         self.view.isUserInteractionEnabled = true
+                        self.shareButton.isEnabled = true
                         CattogramClient.sharedInstance.lastSnapshot = nil
                         NotificationCenter.default.post(name: .cattoPosted, object: nil)
                     }) { (error) in
@@ -65,14 +68,33 @@ class PostViewController: UITableViewController {
                 }
             } else {
                 DispatchQueue.main.async {
+                    self.shareButton.isEnabled = true
                     self.view.isUserInteractionEnabled = true
                 }
-                let alertController = UIAlertController(title: "Hmmm", message: "Cattogram can't detect a catto in your picture, please try to take a better picture.", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alertController = UIAlertController(title: "Hmmm", message: "Cattogram can't detect a catto in your picture but, if you are sure this is a catto you can still post it but it will be flagged as a possible non catto.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+                    DispatchQueue.main.sync {
+                        self.shareButton.isEnabled = false
+                        self.view.isUserInteractionEnabled = false
+                        CattogramClient.sharedInstance.createPost(user: Auth.auth().currentUser!.uid, caption: self.captionView.text + " #possiblenoncatto", image: self.postImageView.image, mapItem: self.mapItem, success: {
+                            self.navigationController?.dismiss(animated: true, completion: nil)
+                            self.shareButton.isEnabled = true
+                            self.view.isUserInteractionEnabled = true
+                            CattogramClient.sharedInstance.lastSnapshot = nil
+                            NotificationCenter.default.post(name: .cattoPosted, object: nil)
+                        }) { (error) in
+                            print(error.localizedDescription)
+                            self.shareButton.isEnabled = true
+                            self.view.isUserInteractionEnabled = true
+                        }
+                    }
+                }))
                 self.present(alertController, animated: true, completion: nil)
             }
         }) { (error) in
             DispatchQueue.main.async {
+                self.shareButton.isEnabled = true
                 self.view.isUserInteractionEnabled = true
             }
             let alertController = UIAlertController(title: "Error", message: "There was an issue while chceking for cattos please try again.", preferredStyle: .alert)

@@ -44,11 +44,16 @@ class CattosViewController: UITableViewController {
         insets.bottom += InfiniteScrollActivityView.defaultHeight
         tableView.contentInset = insets
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadPosts), name: .cattoPosted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadRemotely), name: .cattoPosted, object: nil)
         
         loadPosts()
     }
 
+    @objc func loadRemotely() {
+        refreshControl?.beginRefreshing()
+        loadPosts()
+    }
+    
     @objc func loadPosts() {
         if isMoreDataLoading {
             return
@@ -58,10 +63,6 @@ class CattosViewController: UITableViewController {
         
         if refreshControl!.isRefreshing {
             CattogramClient.sharedInstance.lastSnapshot = nil
-        }
-        
-        if CattogramClient.sharedInstance.lastSnapshot == nil {
-            posts = []
         }
         
         CattogramClient.sharedInstance.getPosts(success: { (posts) in
@@ -104,6 +105,23 @@ class CattosViewController: UITableViewController {
         let cell = (sender as! UIButton).superview!.superview as! CattoCell
         
         performSegue(withIdentifier: "commentSegue", sender: cell.post)
+    }
+    
+    @objc func deletePost(sender: Any) {
+        let header = (sender as! UIButton).superview as! CattoHeaderView
+        let post = header.post
+        
+        let alertController = UIAlertController(title: "Delete Catto", message: "Are you sure you want to delete this catto?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            CattogramClient.sharedInstance.deletePost(post: post!, success: {
+                self.loadRemotely()
+            }, failure: { (error) in
+                print(error.localizedDescription)
+            })
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -153,6 +171,9 @@ class CattosViewController: UITableViewController {
         headerView.post = post
         
         headerView.nameButton.addTarget(self, action: #selector(goToProfile(sender:)), for: .touchUpInside)
+        
+        headerView.editButton.addTarget(self, action: #selector(deletePost(sender:)), for: .touchUpInside)
+        
         return headerView
     }
     

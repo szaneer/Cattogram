@@ -308,6 +308,42 @@ class CattogramClient {
         })
     }
     
+    func deletePost(post: Post, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        
+        let userDocument = self.userCollection.document(post.owner)
+        let postDocument = self.postCollection.document(post.uid)
+        let postImageDocument = self.postImagesCollection.document(post.uid)
+        let postLikesDocument = self.postLikes.document(post.uid)
+        let postCommentsDocument = self.postComments.document(post.uid)
+        
+        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var userSnapshot: DocumentSnapshot
+            do {
+                userSnapshot = try transaction.getDocument(userDocument)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            let userData = userSnapshot.data()
+            let newPostCount = (userData["postCount"] as! Int) - 1
+            transaction.updateData(["postCount": newPostCount], forDocument: userDocument)
+            
+            transaction.deleteDocument(postDocument)
+            transaction.deleteDocument(postImageDocument)
+            transaction.deleteDocument(postLikesDocument)
+            transaction.deleteDocument(postCommentsDocument)
+            
+            return nil
+        }, completion: { (_, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        })
+    }
+    
     var lastSnapshot: DocumentSnapshot?
     
     func getPosts(success: @escaping ([Post]) -> (), failure: @escaping (PostError) -> ()) {
